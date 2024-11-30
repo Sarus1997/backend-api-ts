@@ -1,55 +1,43 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-const { SetColor, COLOR } = require('./config/colorUtils');
-import { get_data } from './model/get_data.ts';
+const { SetColor, COLOR } = require('./src/config/colorUtils');
+import { get_data } from './src/model/get_data';
 
+// Log server startup message
 console.log(
   SetColor([COLOR.fg.magenta], "[Server]") +
   " " +
   SetColor([COLOR.fg.green], "Starting...")
 );
 
-const open = require('open');
-const port: number = 8888;
-const server: Application = express();
+// Dynamically import the 'open' module
+(async () => {
+  const open = (await import('open')).default;
 
-// ให้บริการไฟล์ static จากโฟลเดอร์ public
-server.use(express.static(path.join(__dirname, 'public')));
+  const port: number = 8888;
+  const server: Application = express();
 
-// ใช้ bodyParser เพื่อจัดการกับข้อมูล JSON
-server.use(bodyParser.json());
+  // Serve static files from 'public' directory
+  server.use(express.static(path.join(__dirname, 'public')));
 
-// กำหนดเส้นทาง API
-server.use('/api', get_data);
+  // Use bodyParser for handling JSON data
+  server.use(bodyParser.json());
 
-server.listen(port, () => {
-  console.log(
-    SetColor([COLOR.fg.magenta], "[Server]") +
-    " " +
-    SetColor([COLOR.fg.green], "Starting...")
-  );
-  console.log(
-    SetColor([COLOR.fg.magenta], "[Server]") +
-    " " +
-    SetColor([COLOR.fg.green], "Starting...")
-  );
-  console.log(
-    SetColor([COLOR.fg.magenta], "[Server]") +
-    " " +
-    SetColor([COLOR.fg.green], "Starting...")
-  );
-  console.log(
-    SetColor([COLOR.fg.magenta], "Server") +
-    " " +
-    SetColor([COLOR.fg.red], "Getting ready...")
-  );
-  console.log(
-    SetColor([COLOR.fg.green], `Server running on http://localhost:${port}`)
-  );
+  // Define API route
+  server.use('/api', get_data);
 
-  // เปิดเบราว์เซอร์ไปที่หน้าแรกอัตโนมัติ
-  if (open) {
+  server.listen(port, () => {
+    console.log(
+      SetColor([COLOR.fg.magenta], "[Server]") +
+      " " +
+      SetColor([COLOR.fg.green], "Server running...")
+    );
+    console.log(
+      SetColor([COLOR.fg.green], `Server running on http://localhost:${port}`)
+    );
+
+    // Open the browser automatically
     open(`http://localhost:${port}`);
-  }
-});
+  });
+})();
