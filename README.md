@@ -4,28 +4,21 @@
 
 ## Description
 
- API
+This is a simple API built with Express.js and TypeScript. It provides basic CRUD operations for managing users.
 
-## Features
+## Installation
+
+1. project 🚀
+2. Run `npm install`
+3. Run `npm run dev`
+
+## API Endpoints
 
 - User Management
 - user
 - user
 - user
 - user
-- Product Management
-- product
-- product
-- product
-- product
-
-## Installation
-
-1. project
-2. Run `npm install`
-3. Run `npm run dev`
-
-## API Endpoints
 
 - `POST /users`
   - user
@@ -38,13 +31,21 @@
 - `DELETE /users/:id`
   - user
 
-- `POST /products`"]
+## Example if you want to edit
+
+- Product Management
+- product
+- product
+- product
+- product
+
+- `POST /products`
   - product
-- `GET /products`"]
+- `GET /products`
   - product
-- `GET /products/:id`"]
+- `GET /products/:id`
   - product    id
-- `PUT /products/:id`"]
+- `PUT /products/:id`
   - product
-- `DELETE /products/:id`"]
+- `DELETE /products/:id`
   - product
