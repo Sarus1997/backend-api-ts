@@ -2,7 +2,9 @@
 
 ## Description
 
-This is a simple API built with Express.js and TypeScript. It provides basic CRUD operations for managing users.
+### API Built with Express.js and TypeScript
+
+This project is a simple and efficient API using Express.js and TypeScript. It provides basic CRUD (Create, Read, Update, Delete) operations to manage users effectively.
 
 ## 🚀 Installation
 
