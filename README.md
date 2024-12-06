@@ -13,13 +13,11 @@ Follow these steps to set up and run the project:
 ### Clone the project
 
 ```bash
-git clone <repository-url>  
-cd backend-api-ts  
+git clone https://github.com/Sarus1997/backend-api-ts.git
+cd backend-api-ts 
+- Run `npm install`
+- Run `npm run dev`
 ```
-
-1. project
-2. Run `npm install`
-3. Run `npm run dev`
 
 ## 📂 API Endpoints
 
