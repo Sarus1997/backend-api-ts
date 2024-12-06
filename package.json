@@ -1,5 +1,5 @@
 {
-  "name": "backend-monitor-ts",
+  "name": "backend-api-ts",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
