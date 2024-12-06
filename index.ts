@@ -1,4 +1,7 @@
+//* ใช้คำสั่ง tsc เพื่อสร้างไลฟ์ dist เพื่อดูโครงสร้าง JavaScript *//
+
 import express, { Application } from 'express';
+import mysql from 'mysql2/promise';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { logServerStartup, logServerRunning } from './src/config/logger';
@@ -6,6 +9,18 @@ const { get_data } = require('./src/model/get_data');
 const { post_data } = require('./src/model/post_data');
 const { update_data } = require('./src/model/update_data');
 const { delete_data } = require('./src/model/delete_data');
+
+const pool = mysql.createPool({
+  host: 'localhost', // ชื่อโฮสต์ของฐานข้อมูล
+  user: 'root',      // ชื่อผู้ใช้งานฐานข้อมูล
+  password: 'password', // รหัสผ่านของผู้ใช้
+  database: 'example_db', // ชื่อฐานข้อมูล
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
+export default pool;
 
 // Log server startup message
 logServerStartup();
