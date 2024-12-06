@@ -4,6 +4,8 @@ import path from 'path';
 import { logServerStartup, logServerRunning } from './src/config/logger';
 import { get_data } from './src/model/get_data';
 import { post_data } from './src/model/post_data';
+import { update_data } from './src/model/update_data';
+import { delete_data } from './src/model/delete_data';
 import pool from './src/server/db';
 
 //* Log server startup *//
@@ -36,6 +38,8 @@ logServerStartup();
   //* Define routes with separate paths for GET and POST *//
   server.get('/api/get_data', get_data);
   server.post('/api/post_data', post_data);
+  server.put('/api/update_data', update_data);
+  server.delete('/api/delete_data', delete_data);
 
   //* Start server *//
   server.listen(port, () => {
