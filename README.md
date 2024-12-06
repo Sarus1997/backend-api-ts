@@ -1,7 +1,5 @@
 # Backend Api TS 😎
 
-<h1>Backend Api TS 😎</h1>
-
 ## Description
 
 ### API Built with Express.js and TypeScript
