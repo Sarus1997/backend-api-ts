@@ -1,48 +1,50 @@
 # backend-api-ts
 
+# API  Express.js  TypeScript
+
 ## Description
 
-This project is a simple backend API made with Express.js and TypeScript.
+ API
 
 ## Features
 
 - User Management
-  - Create user
-  - Read user
-  - Update user
-  - Delete user
+- user
+- user
+- user
+- user
 - Product Management
-  - Create product
-  - Read product
-  - Update product
-  - Delete product
+- product
+- product
+- product
+- product
 
 ## Installation
 
-1. Clone the project
+1. project
 2. Run `npm install`
 3. Run `npm run dev`
 
 ## API Endpoints
 
 - `POST /users`
-  - Create user
+  - user
 - `GET /users`
-  - Read user
+  - user
 - `GET /users/:id`
-  - Read user by id
+  - user    id
 - `PUT /users/:id`
-  - Update user
+  - user
 - `DELETE /users/:id`
-  - Delete user
+  - user
 
-- `POST /products`
-  - Create product
-- `GET /products`
-  - Read product
-- `GET /products/:id`
-  - Read product by id
-- `PUT /products/:id`
-  - Update product
-- `DELETE /products/:id`
-  - Delete product
+- `POST /products`"]
+  - product
+- `GET /products`"]
+  - product
+- `GET /products/:id`"]
+  - product    id
+- `PUT /products/:id`"]
+  - product
+- `DELETE /products/:id`"]
+  - product
