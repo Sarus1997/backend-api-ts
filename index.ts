@@ -49,9 +49,9 @@ logServerStartup();
   //* Test database connection *//
   try {
     const connection = await pool.getConnection();
-    console.log('Database connected successfully');
     connection.release();
   } catch (error) {
     console.error('Error connecting to the database:', error.message);
+
   }
 })();
