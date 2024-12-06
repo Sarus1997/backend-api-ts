@@ -32,7 +32,7 @@ const delete_data = async (req: Request, res: Response): Promise<void> => {
 
     res.json({
       success: true,
-      message: 'Employee data deleted successfully!',
+      message: 'Data Deleted Successfully!',
     });
   } catch (error) {
     console.error('Error deleting data:', error);

@@ -26,7 +26,7 @@ const post_data = async (req: Request, res: Response): Promise<void> => {
 
     res.json({
       success: true,
-      message: 'Employee data inserted successfully!',
+      message: 'Data Inserted Successfully!',
     });
   } catch (error) {
     console.error('Error inserting data:', error);

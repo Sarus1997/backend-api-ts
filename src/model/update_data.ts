@@ -23,7 +23,8 @@ const update_data = async (req: Request, res: Response): Promise<void> => {
 
     const sql = `
       UPDATE employees_
-      SET first_name = ?, last_name = ?
+        SET first_name = ?, 
+        last_name = ?
       WHERE id = ?
     `;
 

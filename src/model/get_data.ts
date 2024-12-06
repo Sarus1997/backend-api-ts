@@ -28,7 +28,7 @@ const get_data = async (req: Request, res: Response): Promise<void> => {
     // Respond with employee data
     res.json({
       success: true,
-      message: 'Employee data fetched successfully.',
+      message: 'Data Fetched Successfully.',
       employeeData: rows,
       timestamp: new Date().toLocaleString(),
       secretKey,
