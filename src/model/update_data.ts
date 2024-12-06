@@ -42,7 +42,7 @@ const update_data = async (req: Request, res: Response): Promise<void> => {
 
     res.json({
       success: true,
-      message: 'Employee data updated successfully!',
+      message: 'Data Updated Successfully!',
     });
   } catch (error) {
     console.error('Error updating data:', error);
