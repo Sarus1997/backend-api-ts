@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_data = void 0;
 const crypto_1 = __importDefault(require("crypto"));
-const db_1 = __importDefault(require("../server/db")); // Adjust the path if needed
+const db_1 = __importDefault(require("../server/db"));
 // Function to generate a secret key
 const generateSecretKey = () => {
     return crypto_1.default.randomBytes(32).toString('hex');
@@ -14,7 +14,7 @@ const generateSecretKey = () => {
 const secretKey = generateSecretKey();
 const get_data = async (req, res) => {
     try {
-        // SQL query to fetch all employee data
+        //* SQL query to fetch all employee data *//
         const sqlProducts = `
       SELECT
         id,
@@ -23,12 +23,12 @@ const get_data = async (req, res) => {
       FROM
         employees_
     `;
-        // Execute query
+        //* Execute query *//
         const [rows] = await db_1.default.query(sqlProducts);
-        // Respond with employee data
+        //* Respond with employee data *//
         res.json({
             success: true,
-            message: 'Employee data fetched successfully.',
+            message: 'Data Fetched Successfully.',
             employeeData: rows,
             timestamp: new Date().toLocaleString(),
             secretKey,

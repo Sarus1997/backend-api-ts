@@ -24,7 +24,8 @@ const update_data = async (req, res) => {
         }
         const sql = `
       UPDATE employees_
-      SET first_name = ?, last_name = ?
+        SET first_name = ?, 
+        last_name = ?
       WHERE id = ?
     `;
         const params = [first_name, last_name, id];
@@ -38,7 +39,7 @@ const update_data = async (req, res) => {
         }
         res.json({
             success: true,
-            message: 'Employee data updated successfully!',
+            message: 'Data Updated Successfully!',
         });
     }
     catch (error) {

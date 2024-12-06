@@ -24,13 +24,13 @@ const delete_data = async (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).json({
                 success: false,
-                message: `Employee with ID ${id} not found.`,
+                message: `Data with ID ${id} not found.`,
             });
             return;
         }
         res.json({
             success: true,
-            message: 'Employee data deleted successfully!',
+            message: 'Data Deleted Successfully!',
         });
     }
     catch (error) {

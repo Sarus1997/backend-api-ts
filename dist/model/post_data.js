@@ -11,7 +11,7 @@ const post_data = async (req, res) => {
         if (!first_name || !last_name) {
             res.status(400).json({
                 success: false,
-                message: 'First name and last name are required.',
+                message: 'Fill in required information.',
             });
             return;
         }
@@ -25,7 +25,7 @@ const post_data = async (req, res) => {
         await db_1.default.execute(sql, params);
         res.json({
             success: true,
-            message: 'Employee data inserted successfully!',
+            message: 'Data Inserted Successfully!',
         });
     }
     catch (error) {
