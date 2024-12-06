@@ -4,20 +4,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.delete_data = void 0;
-const crypto_1 = __importDefault(require("crypto"));
-const generateSecretKey = () => {
-    return crypto_1.default.randomBytes(32).toString('hex');
-};
-const message = "แมวขาว888.com ชวนลงทุนอันดับหนึ่ง เจ๊งก็เรื่องของมึง";
-const secretKey = generateSecretKey();
-const delete_data = (req, res) => {
-    res.json({
-        message,
-        timestamp: new Date().toLocaleString(),
-        secretKey,
-        serverTime: new Date().toLocaleString(),
-        requestHeaders: req.headers,
-        requestBody: req.body,
-    });
+const db_1 = __importDefault(require("../server/db"));
+const delete_data = async (req, res) => {
+    try {
+        const { id } = req.body;
+        if (!id) {
+            res.status(400).json({
+                success: false,
+                message: 'ID is required.',
+            });
+            return;
+        }
+        const sql = `
+      DELETE FROM employees_
+      WHERE id = ?
+    `;
+        const params = [id];
+        const [result] = await db_1.default.execute(sql, params);
+        if (result.affectedRows === 0) {
+            res.status(404).json({
+                success: false,
+                message: `Employee with ID ${id} not found.`,
+            });
+            return;
+        }
+        res.json({
+            success: true,
+            message: 'Employee data deleted successfully!',
+        });
+    }
+    catch (error) {
+        console.error('Error deleting data:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete data from the database.',
+        });
+    }
 };
 exports.delete_data = delete_data;

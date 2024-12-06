@@ -5,19 +5,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_data = void 0;
 const crypto_1 = __importDefault(require("crypto"));
+const db_1 = __importDefault(require("../server/db")); // Adjust the path if needed
+// Function to generate a secret key
 const generateSecretKey = () => {
     return crypto_1.default.randomBytes(32).toString('hex');
 };
-const message = "แมวขาว888.com ชวนลงทุนอันดับหนึ่ง เจ๊งก็เรื่องของมึง";
+// Generate secret key once
 const secretKey = generateSecretKey();
-const get_data = (req, res) => {
-    res.json({
-        message,
-        timestamp: new Date().toLocaleString(),
-        secretKey,
-        serverTime: new Date().toLocaleString(),
-        requestHeaders: req.headers,
-        requestBody: req.body,
-    });
+const get_data = async (req, res) => {
+    try {
+        // SQL query to fetch all employee data
+        const sqlProducts = `
+      SELECT
+        id,
+        first_name,
+        last_name
+      FROM
+        employees_
+    `;
+        // Execute query
+        const [rows] = await db_1.default.query(sqlProducts);
+        // Respond with employee data
+        res.json({
+            success: true,
+            message: 'Employee data fetched successfully.',
+            employeeData: rows,
+            timestamp: new Date().toLocaleString(),
+            secretKey,
+        });
+    }
+    catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch data from the database.',
+            error: error.message,
+        });
+    }
 };
 exports.get_data = get_data;
