@@ -2,7 +2,7 @@ const { SetColor, COLOR } = require('../config/colorUtils');
 
 export const logServerStartup = () => {
   console.log(
-    `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], "Server starting...")}`
+    `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], "SSSSS")}`
   );
   console.log(
     `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], "Server starting...")}`
