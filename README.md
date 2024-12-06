@@ -6,7 +6,16 @@
 
 This is a simple API built with Express.js and TypeScript. It provides basic CRUD operations for managing users.
 
-## Installation 🚀
+## 🚀 Installation
+
+Follow these steps to set up and run the project:
+
+### Clone the project
+
+```bash
+git clone <repository-url>  
+cd backend-api-ts  
+```
 
 1. project
 2. Run `npm install`
@@ -20,7 +29,7 @@ This is a simple API built with Express.js and TypeScript. It provides basic CRU
 |-------------|--------------------|--------------------|
 | GET         | `/`                | Page Welcom        |
 | GET         | `/api/get_data`    | Get all data       |
-| POST         | `/api/post_data`  | Post data          |
+| POST        | `/api/post_data`  | Post data          |
 | PUT         | `/api/update_data` | Update data        |
 | DELETE      | `/api/delete_data` | Delete a user by ID|
 
