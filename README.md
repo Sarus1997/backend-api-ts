@@ -38,3 +38,7 @@ This version organizes the information clearly and includes markdown tables and 
 ##
 
 Let me know if you'd like further improvements or additional features added! 😊
+
+```bash
+Developed ⚒️ by Saharat Suwannapapond 
+```
