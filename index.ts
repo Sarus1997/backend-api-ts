@@ -45,44 +45,13 @@ logServerStartup();
                   border-radius: 10px;
                   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
               }
-
-              h1 {
-                  color: #333;
-                  text-align: center;
-                  margin-bottom: 20px;
-              }
-
-              p {
-                  color: #666;
-                  text-align: justify;
-              }
-
-              .highlight {
-                  color: #e74c3c;
-                  font-weight: bold;
-              }
-
-              ul {
-                  padding-left: 20px;
-              }
-
-              li {
-                  margin-bottom: 10px;
-              }
           </style>
       </head>
 
       <body>
           <div class="container">
-              <h1>Welcome to My Website</h1>
-              <p>Hello and welcome! This is a simple webpage to demonstrate HTML and CSS.</p>
-              <p>Here are some interesting facts:</p>
-              <ul>
-                  <li>HTML stands for <span class="highlight">Hypertext Markup Language</span></li>
-                  <li>CSS stands for <span class="highlight">Cascading Style Sheets</span></li>
-                  <li>Together, they create beautiful web pages!</li>
-              </ul>
-              <p>Feel free to explore and learn more about web development.</p>
+              <h1 style="color: #333; text-align: center; margin-bottom: 20px;">Welcome to Backend API Ts</h1>
+              <p style="coloe: #333; text-align: center; margin-bottom: 20px;">Create simple enterprise APIs. 🚀</p>
           </div>
       </body>
 
