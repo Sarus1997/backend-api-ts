@@ -29,31 +29,45 @@ logServerStartup();
                   font-family: Arial, sans-serif;
                   line-height: 1.6;
                   margin: 0;
-                  padding: 20px;
+                  padding: 0;
                   background-color: #f4f4f4;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  min-height: 100vh;
               }
 
               .container {
                   max-width: 800px;
-                  margin: auto;
+                  width: 90%;
                   background: white;
-                  padding: 20px;
-                  border-radius: 5px;
-                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                  padding: 30px;
+                  border-radius: 10px;
+                  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
               }
 
               h1 {
                   color: #333;
                   text-align: center;
+                  margin-bottom: 20px;
               }
 
               p {
                   color: #666;
+                  text-align: justify;
               }
 
               .highlight {
                   color: #e74c3c;
                   font-weight: bold;
+              }
+
+              ul {
+                  padding-left: 20px;
+              }
+
+              li {
+                  margin-bottom: 10px;
               }
           </style>
       </head>
