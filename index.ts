@@ -8,50 +8,36 @@ import { update_data } from './src/model/update_data';
 import { delete_data } from './src/model/delete_data';
 import pool from './src/server/db';
 
-//* Log server startup *//
 logServerStartup();
 
 (async () => {
   const port: number = 8888;
   const server: Application = express();
 
-  server.get('/', (req, res) => {
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Hello World</title>
-      </head>
-      <body>
-          <h1>Hello World</h1>
-      </body>
-      </html>
-    `);
-  });
-
-  //* Middleware for static files and parsing JSON requests *//
+  // Serve static files
   server.use(express.static(path.join(__dirname, 'public')));
   server.use(bodyParser.json());
 
-  //* Define routes with separate paths for GET and POST *//
+  // Define routes
+  server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views', 'home.html'));
+  });
+
   server.get('/api/get_data', get_data);
   server.post('/api/post_data', post_data);
   server.put('/api/update_data', update_data);
   server.delete('/api/delete_data', delete_data);
 
-  //* Start server *//
+  // Start server
   server.listen(port, () => {
     logServerRunning(port);
   });
 
-  //* Test database connection *//
+  // Test database connection
   try {
     const connection = await pool.getConnection();
     connection.release();
   } catch (error) {
     console.error('Error connecting to the database:', error.message);
-
   }
 })();
