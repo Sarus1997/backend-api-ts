@@ -1,41 +1,29 @@
-//* ใช้คำสั่ง tsc เพื่อสร้างไลฟ์ dist เพื่อดูโครงสร้าง JavaScript *//
-
 import express, { Application } from 'express';
 import mysql from 'mysql2/promise';
 import bodyParser from 'body-parser';
 import path from 'path';
+
+//* Import your custom modules *//
 import { logServerStartup, logServerRunning } from './src/config/logger';
-const { get_data } = require('./src/model/get_data');
-const { post_data } = require('./src/model/post_data');
-const { update_data } = require('./src/model/update_data');
-const { delete_data } = require('./src/model/delete_data');
+import { get_data } from './src/model/get_data';
+import { post_data } from './src/model/post_data';
+import { update_data } from './src/model/update_data';
+import { delete_data } from './src/model/delete_data';
+import pool from './src/server/db';
 
-const pool = mysql.createPool({
-  host: 'localhost', // ชื่อโฮสต์ของฐานข้อมูล
-  user: 'root',      // ชื่อผู้ใช้งานฐานข้อมูล
-  password: 'password', // รหัสผ่านของผู้ใช้
-  database: 'example_db', // ชื่อฐานข้อมูล
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
-
-export default pool;
-
-// Log server startup message
+//* Log server startup *//
 logServerStartup();
 
-// Dynamically import the 'open' module
 (async () => {
-
-  //** Server configuration **//
   const port: number = 8888;
   const server: Application = express();
+
+  //* Middleware for static files and parsing JSON requests *//
   server.use(express.static(path.join(__dirname, 'public')));
   server.use(bodyParser.json());
 
-  //** Page Welcome **//
-  server.use('/', (req, res) => {
+  //* Define routes *//
+  server.get('/', (req, res) => {
     res.send(`
       <!DOCTYPE html>
       <html lang="en">
@@ -51,15 +39,22 @@ logServerStartup();
     `);
   });
 
-  //** Routes **//
-  //? how to use --> http://localhost:port/api/get_data //
   server.use('/api', get_data);
   server.use('/api', post_data);
   server.use('/api', update_data);
   server.use('/api', delete_data);
 
-  //** Start server **//
+  //* Start server *//
   server.listen(port, () => {
     logServerRunning(port);
   });
+
+  //* Test database connection *//
+  try {
+    const connection = await pool.getConnection();
+    console.log('Database connected successfully');
+    connection.release();
+  } catch (error) {
+    console.error('Error connecting to the database:', error.message);
+  }
 })();
