@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
-import pool from '../server/db'; // Adjust the path if needed
+import pool from '../server/db';
 
 // Function to generate a secret key
 const generateSecretKey = (): string => {
@@ -12,7 +12,7 @@ const secretKey = generateSecretKey();
 
 const get_data = async (req: Request, res: Response): Promise<void> => {
   try {
-    // SQL query to fetch all employee data
+    //* SQL query to fetch all employee data *//
     const sqlProducts = `
       SELECT
         id,
@@ -22,10 +22,10 @@ const get_data = async (req: Request, res: Response): Promise<void> => {
         employees_
     `;
 
-    // Execute query
+    //* Execute query *//
     const [rows] = await pool.query(sqlProducts);
 
-    // Respond with employee data
+    //* Respond with employee data *//
     res.json({
       success: true,
       message: 'Data Fetched Successfully.',

@@ -8,7 +8,7 @@ const post_data = async (req: Request, res: Response): Promise<void> => {
     if (!first_name || !last_name) {
       res.status(400).json({
         success: false,
-        message: 'First name and last name are required.',
+        message: 'Fill in required information.',
       });
       return;
     }

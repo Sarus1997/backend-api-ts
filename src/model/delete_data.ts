@@ -25,7 +25,7 @@ const delete_data = async (req: Request, res: Response): Promise<void> => {
     if (result.affectedRows === 0) {
       res.status(404).json({
         success: false,
-        message: `Employee with ID ${id} not found.`,
+        message: `Data with ID ${id} not found.`,
       });
       return;
     }
