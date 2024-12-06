@@ -15,8 +15,8 @@ Follow these steps to set up and run the project:
 ```bash
 git clone https://github.com/Sarus1997/backend-api-ts.git
 cd backend-api-ts 
-- Run `npm install`
-- Run `npm run dev`
+➡️ Run `npm install`
+➡️ Run `npm run dev`
 ```
 
 ## 📂 API Endpoints
@@ -36,8 +36,6 @@ cd backend-api-ts
 This version organizes the information clearly and includes markdown tables and sections for better readability.
 
 ##
-
-Let me know if you'd like further improvements or additional features added! 😊
 
 ```bash
 Developed ⚒️ by Saharat Suwannapapond 
