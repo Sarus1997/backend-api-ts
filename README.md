@@ -1,6 +1,4 @@
-# backend-api-ts 😎
-
-# API  Express.js  TypeScript
+# Backend Api ts 😎
 
 ## Description
 
@@ -23,13 +21,13 @@ cd backend-api-ts
 
 ### User Management
 
-| HTTP Method | Endpoint           | Description        |
-|-------------|--------------------|--------------------|
-| GET         | `/`                | Page Welcom        |
-| GET         | `/api/get_data`    | Get all data       |
-| POST        | `/api/post_data`  | Post data          |
-| PUT         | `/api/update_data` | Update data        |
-| DELETE      | `/api/delete_data` | Delete a user by ID|
+| HTTP Method | Endpoint           | Description          |
+|-------------|--------------------|----------------------|
+| GET         | `/`                | Page Welcom          |
+| GET         | `/api/get_data`    | Get all data         |
+| POST        | `/api/post_data`   | Post data            |
+| PUT         | `/api/update_data` | Update data          |
+| DELETE      | `/api/delete_data` | Delete a user by ID  |
 
 ## ✨ Happy Coding! 🎉
 
