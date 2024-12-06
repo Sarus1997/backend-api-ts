@@ -16,16 +16,18 @@ This is a simple API built with Express.js and TypeScript. It provides basic CRU
 
 ### User Management
 
-| HTTP Method | Endpoint      | Description        |
-|-------------|---------------|--------------------|
-| POST        | `/users`      | Create a new user  |
-| GET         | `/users`      | Get all users      |
-| GET         | `/users/:id`  | Get a user by ID   |
-| PUT         | `/users/:id`  | Update a user by ID|
-| DELETE      | `/users/:id`  | Delete a user by ID|
+| HTTP Method | Endpoint           | Description        |
+|-------------|--------------------|--------------------|
+| GET         | `/`                | Page Welcom        |
+| GET         | `/api/get_data`    | Get all data       |
+| POST         | `/api/post_data`  | Post data          |
+| PUT         | `/api/update_data` | Update data        |
+| DELETE      | `/api/delete_data` | Delete a user by ID|
 
 ## ✨ Happy Coding! 🎉
 
 This version organizes the information clearly and includes markdown tables and sections for better readability.
+
+##
 
 Let me know if you'd like further improvements or additional features added! 😊
