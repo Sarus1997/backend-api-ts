@@ -17,62 +17,62 @@ logServerStartup();
 
   server.get('/', (req, res) => {
     res.send(`
-<!DOCTYPE html>
-<html lang="en">
+      <!DOCTYPE html>
+      <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Welcome to My Website</title>
+          <style>
+              body {
+                  font-family: Arial, sans-serif;
+                  line-height: 1.6;
+                  margin: 0;
+                  padding: 20px;
+                  background-color: #f4f4f4;
+              }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+              .container {
+                  max-width: 800px;
+                  margin: auto;
+                  background: white;
+                  padding: 20px;
+                  border-radius: 5px;
+                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              }
 
-        h1 {
-            color: #333;
-            text-align: center;
-        }
+              h1 {
+                  color: #333;
+                  text-align: center;
+              }
 
-        p {
-            color: #666;
-        }
+              p {
+                  color: #666;
+              }
 
-        .highlight {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-    </style>
-</head>
+              .highlight {
+                  color: #e74c3c;
+                  font-weight: bold;
+              }
+          </style>
+      </head>
 
-<body>
-    <div class="container">
-        <h1>Welcome to My Website</h1>
-        <p>Hello and welcome! This is a simple webpage to demonstrate HTML and CSS.</p>
-        <p>Here are some interesting facts:</p>
-        <ul>
-            <li>HTML stands for <span class="highlight">Hypertext Markup Language</span></li>
-            <li>CSS stands for <span class="highlight">Cascading Style Sheets</span></li>
-            <li>Together, they create beautiful web pages!</li>
-        </ul>
-        <p>Feel free to explore and learn more about web development.</p>
-    </div>
-</body>
+      <body>
+          <div class="container">
+              <h1>Welcome to My Website</h1>
+              <p>Hello and welcome! This is a simple webpage to demonstrate HTML and CSS.</p>
+              <p>Here are some interesting facts:</p>
+              <ul>
+                  <li>HTML stands for <span class="highlight">Hypertext Markup Language</span></li>
+                  <li>CSS stands for <span class="highlight">Cascading Style Sheets</span></li>
+                  <li>Together, they create beautiful web pages!</li>
+              </ul>
+              <p>Feel free to explore and learn more about web development.</p>
+          </div>
+      </body>
 
-</html>
+      </html>
     `);
   });
 
