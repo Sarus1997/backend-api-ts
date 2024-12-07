@@ -41,18 +41,18 @@ export const logServerStartup = () => {
   );
 
   const arrowsButtom = [
-    { green: "----------->", yellow: "-------->", red: "----->" },
+    { red: "----------->", green: "-------->", yellow: "----->" },
   ];
 
-  arrowsButtom.forEach(({ green, yellow, red }) => {
+  arrowsButtom.forEach(({ green, red, yellow }) => {
     console.log(
-      `${SetColor([COLOR.fg.red], green)}`
+      `${SetColor([COLOR.fg.green], green)}`
     );
     console.log(
       `${SetColor([COLOR.fg.yellow], yellow)}`
     );
     console.log(
-      `${SetColor([COLOR.fg.green], red)}`
+      `${SetColor([COLOR.fg.red], red)}`
     );
   });
 };
