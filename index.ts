@@ -1,15 +1,12 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { logServerStartup, logServerRunning } from './src/config/logger';
+import { logServerRunning } from './src/config/logger';
 import { get_data } from './src/model/get_data';
 import { post_data } from './src/model/post_data';
 import { update_data } from './src/model/update_data';
 import { delete_data } from './src/model/delete_data';
 import pool from './src/server/db';
-
-//* Log server startup *//
-logServerStartup();
 
 (async () => {
   const port: number = 8888;

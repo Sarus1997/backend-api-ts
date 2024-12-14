@@ -1,64 +1,21 @@
 const { SetColor, COLOR } = require('../config/colorUtils');
 
-export const logServerStartup = () => {
-  const arrowsTop = [
-    { green: "----->", yellow: "-------->", red: "----------->" },
-  ];
-
-  arrowsTop.forEach(({ green, yellow, red }) => {
-    console.log(
-      `${SetColor([COLOR.fg.green], green)}`
-    );
-    console.log(
-      `${SetColor([COLOR.fg.yellow], yellow)}`
-    );
-    console.log(
-      `${SetColor([COLOR.fg.red], red)}`
-    );
-  });
-
-  const msg = "Develop ⚒️  by: Saharat Suwannapapond";
-
-  const serverLines = [
-    { red: "SSSSS", blue: "RRRRR" },
-    { red: "S    ", blue: "R   R" },
-    { red: "SSSSS", blue: "RRRR " },
-    { red: "    S", blue: "R  R " },
-    { red: "SSSSS", blue: "R   R 💕" },
-  ];
-
-  serverLines.forEach(({ red, blue }) => {
-    console.log(
-      `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.brightRed], red)} ${SetColor([COLOR.fg.brightBlue], blue)}`
-    );
-  });
-
+export const logServerError = (error: any) => {
   console.log(
-    `${SetColor([COLOR.fg.magenta], "[Server]")} \t\b${SetColor(
-      [COLOR.fg.green],
-      msg
-    )}`
+    `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor(
+      [COLOR.fg.red],
+      "Server error:"
+    )} ${error}`
   );
-
-  const arrowsButtom = [
-    { red: "----------->", green: "-------->", yellow: "----->" },
-  ];
-
-  arrowsButtom.forEach(({ green, red, yellow }) => {
-    console.log(
-      `${SetColor([COLOR.fg.green], green)}`
-    );
-    console.log(
-      `${SetColor([COLOR.fg.yellow], yellow)}`
-    );
-    console.log(
-      `${SetColor([COLOR.fg.red], red)}`
-    );
-  });
 };
 
-
 export const logServerRunning = (port: number) => {
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.red], "█████  ██████")}`);
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.white], "██     ██  ██")}`);
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.blue], "█████  █████")}`);
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.white], "   ██  ██  ██")}`);
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.red], "█████  ██   ██")}`);
+  console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "----------------------> SR Server")}`);
   console.log(
     `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], "Server running...")}`
   );
@@ -69,7 +26,7 @@ export const logServerRunning = (port: number) => {
     )}`
   );
   console.log(
-    `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], `Running on http://localhost:${port} ⚡`)}`
+    `${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], `Running on หhttp://localhost:${port} ⚡`)}`
   );
   console.log(
     `${SetColor([COLOR.fg.magenta], "***** ***** ***** ***** ***** ***** *****")}`
