@@ -16,7 +16,7 @@ const postData = async (req, res) => {
             });
             return;
         }
-        const product_id = (0, function_1.generateProductId)(req.body.product_id);
+        const product_id = (0, function_1.generateID)(req.body.product_id);
         const secretKey = (0, function_1.generateSecretKey)();
         const sql = `
       INSERT INTO product_ 

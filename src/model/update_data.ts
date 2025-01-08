@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateSecretKey, generateProductId } from '../core/function';
+import { generateSecretKey } from '../core/function';
 
 const updateData = async (req: Request, res: Response): Promise<void> => {
   try {
