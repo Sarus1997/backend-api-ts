@@ -1,46 +1,49 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
+import { generateSecretKey } from '../core/function';
 
 const deleteData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.body;
+    const { product_id } = req.body;
 
-    if (!id) {
+    if (!product_id) {
       res.status(400).json({
         success: false,
-        message: 'ID is required.',
+        message: 'product_id is required.',
       });
       return;
     }
 
+    const secretKey = generateSecretKey();
+
     const sql = `
-      DELETE FROM employees_
-      WHERE id = ?
+      DELETE FROM product_
+      WHERE product_id = ?
     `;
+    const params = [product_id];
 
-    const params = [id];
+    const [result] = await pool.execute(sql, params);
 
-    const [result]: any = await pool.execute(sql, params);
-
-    if (result.affectedRows === 0) {
+    if ((result as any).affectedRows === 0) {
       res.status(404).json({
         success: false,
-        message: `Data with ID ${id} not found.`,
+        message: `Product with ID ${product_id} not found.`,
       });
       return;
     }
 
     res.json({
       success: true,
-      message: 'Data Deleted Successfully!',
+      message: 'Data deleted successfully!',
+      secretKey,
+      result,
     });
-  } catch (error) {
-    console.error('Error deleting data:', error);
+  } catch (err) {
+    console.error('Error:', err);
     res.status(500).json({
       success: false,
       message: 'Failed to delete data from the database.',
     });
   }
 };
-
 export { deleteData };

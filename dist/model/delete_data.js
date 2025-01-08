@@ -5,36 +5,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteData = void 0;
 const db_1 = __importDefault(require("../server/db"));
+const function_1 = require("../core/function");
 const deleteData = async (req, res) => {
     try {
-        const { id } = req.body;
-        if (!id) {
+        const { product_id } = req.body;
+        if (!product_id) {
             res.status(400).json({
                 success: false,
-                message: 'ID is required.',
+                message: 'product_id is required.',
             });
             return;
         }
+        const secretKey = (0, function_1.generateSecretKey)();
         const sql = `
-      DELETE FROM employees_
-      WHERE id = ?
+      DELETE FROM product_
+      WHERE product_id = ?
     `;
-        const params = [id];
+        const params = [product_id];
         const [result] = await db_1.default.execute(sql, params);
         if (result.affectedRows === 0) {
             res.status(404).json({
                 success: false,
-                message: `Data with ID ${id} not found.`,
+                message: `Product with ID ${product_id} not found.`,
             });
             return;
         }
         res.json({
             success: true,
-            message: 'Data Deleted Successfully!',
+            message: 'Data deleted successfully!',
+            secretKey,
+            result,
         });
     }
-    catch (error) {
-        console.error('Error deleting data:', error);
+    catch (err) {
+        console.error('Error:', err);
         res.status(500).json({
             success: false,
             message: 'Failed to delete data from the database.',

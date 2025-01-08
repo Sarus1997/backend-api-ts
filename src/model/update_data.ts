@@ -1,57 +1,44 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
+import { generateSecretKey, generateProductId } from '../core/function';
 
 const updateData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id, first_name, last_name } = req.body;
+    const { product_id, product_name, image_url = '', brand = '', status = 'active' } = req.body;
 
-    if (!id) {
+    if (!product_id || !product_name) {
       res.status(400).json({
         success: false,
-        message: 'ID is required.',
+        message: 'Fill in required information.',
       });
       return;
     }
 
-    if (!first_name || !last_name) {
-      res.status(400).json({
-        success: false,
-        message: 'First name and last name are required.',
-      });
-      return;
-    }
+    const secretKey = generateSecretKey();
 
     const sql = `
-      UPDATE employees_
-        SET first_name = ?, 
-        last_name = ?
-      WHERE id = ?
+      UPDATE product_
+      SET product_name = ?, image_url = ?, brand = ?, status = ?
+      WHERE product_id = ?
     `;
+    const params = [product_name, image_url, brand, status, product_id];
 
-    const params = [first_name, last_name, id];
-
-    const [result]: any = await pool.execute(sql, params);
-
-    if (result.affectedRows === 0) {
-      res.status(404).json({
-        success: false,
-        message: `Employee with ID ${id} not found.`,
-      });
-      return;
-    }
+    const [result] = await pool.execute(sql, params);
 
     res.json({
       success: true,
-      message: 'Data Updated Successfully!',
+      message: 'Data updated successfully!',
+      data: { product_id, product_name },
+      secretKey,
+      result,
     });
-  } catch (error) {
-    console.error('Error updating data:', error);
+  } catch (err) {
+    console.error('Error:', err);
     res.status(500).json({
       success: false,
       message: 'Failed to update data in the database.',
     });
   }
 };
-
 
 export { updateData };
