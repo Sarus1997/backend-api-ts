@@ -31,6 +31,7 @@ const postData = async (req, res) => {
             message: 'Data inserted successfully!',
             data: { product_id, product_name },
             secretKey,
+            result,
         });
     }
     catch (err) {
