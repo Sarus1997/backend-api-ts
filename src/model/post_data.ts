@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
 
-const post_data = async (req: Request, res: Response): Promise<void> => {
+const postData = async (req: Request, res: Response): Promise<void> => {
   try {
     const { first_name, last_name } = req.body;
 
@@ -37,4 +37,4 @@ const post_data = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { post_data };
+export { postData };

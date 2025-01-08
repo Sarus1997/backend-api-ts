@@ -2,14 +2,14 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { logServerRunning } from './src/config/logger';
-import { get_data } from './src/model/get_data';
-import { post_data } from './src/model/post_data';
-import { update_data } from './src/model/update_data';
-import { delete_data } from './src/model/delete_data';
+import { getData } from './src/model/get_data';
+import { postData } from './src/model/post_data';
+import { updateData } from './src/model/update_data';
+import { deleteData } from './src/model/delete_data';
 import pool from './src/server/db';
 
 (async () => {
-  const port: number = 8888;
+  const port: number = 8080;
   const server: Application = express();
 
   server.get('/', (req, res) => {
@@ -61,10 +61,10 @@ import pool from './src/server/db';
   server.use(bodyParser.json());
 
   //* Define routes with separate paths for GET and POST *//
-  server.get('/api/get_data', get_data);
-  server.post('/api/post_data', post_data);
-  server.put('/api/update_data', update_data);
-  server.delete('/api/delete_data', delete_data);
+  server.get('/api/get_data', getData);
+  server.post('/api/post_data', postData);
+  server.put('/api/update_data', updateData);
+  server.delete('/api/delete_data', deleteData);
 
   //* Start server *//
   server.listen(port, () => {

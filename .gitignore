@@ -1,1 +1,20 @@
-/node_modules
+# Ignore environment files
+.env
+
+# Ignore node modules folder
+node_modules/
+
+# Ignore build output
+dist/
+build/
+
+# Ignore log files
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore other sensitive files or folders
+*.pem
+*.key

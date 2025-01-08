@@ -5,17 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const promise_1 = __importDefault(require("mysql2/promise"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// โหลดค่า environment variables
+//** โหลดค่า environment variables *//
 dotenv_1.default.config();
 const pool = promise_1.default.createPool({
-    //* ชื่อโฮสต์ของฐานข้อมูล *//
-    host: process.env.DB_HOST || 'localhost',
-    //* ชื่อผู้ใช้งานฐานข้อมูล *//
-    user: process.env.DB_USER || 'root',
-    //* รหัสผ่านของผู้ใช้ *//
-    password: process.env.DB_PASSWORD || 'root',
-    //* ชื่อฐานข้อมูล *//
-    database: process.env.DB_NAME || 'employee_db',
+    host: process.env.DB_HOST || '13.229.180.6',
+    port: parseInt(process.env.DB_PORT || "3306"),
+    user: process.env.DB_USER || 'admin',
+    password: process.env.DB_PASSWORD || '7P£]st11j%s7',
+    database: process.env.DB_NAME || 'sym',
     //* การตั้งค่าการเชื่อมต่อเพิ่มเติม *//
     waitForConnections: true,
     connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT || '10', 10),

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
 
-const deleteData = async (req: Request, res: Response): Promise<void> => {
+const delete_data = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.body;
 
@@ -43,4 +43,4 @@ const deleteData = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { deleteData };
+export { delete_data };

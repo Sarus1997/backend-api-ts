@@ -17,11 +17,9 @@ const get_data = async (req, res) => {
         //* SQL query to fetch all employee data *//
         const sqlProducts = `
       SELECT
-        id,
-        first_name,
-        last_name
+        *
       FROM
-        employees_
+        __pos_product
     `;
         //* Execute query *//
         const [rows] = await db_1.default.query(sqlProducts);
