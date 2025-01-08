@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.update_data = void 0;
+exports.updateData = void 0;
 const db_1 = __importDefault(require("../server/db"));
-const update_data = async (req, res) => {
+const updateData = async (req, res) => {
     try {
         const { id, first_name, last_name } = req.body;
         if (!id) {
@@ -50,4 +50,4 @@ const update_data = async (req, res) => {
         });
     }
 };
-exports.update_data = update_data;
+exports.updateData = updateData;

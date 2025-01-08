@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delete_data = void 0;
+exports.deleteData = void 0;
 const db_1 = __importDefault(require("../server/db"));
-const delete_data = async (req, res) => {
+const deleteData = async (req, res) => {
     try {
         const { id } = req.body;
         if (!id) {
@@ -41,4 +41,4 @@ const delete_data = async (req, res) => {
         });
     }
 };
-exports.delete_data = delete_data;
+exports.deleteData = deleteData;

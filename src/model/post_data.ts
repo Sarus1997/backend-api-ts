@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
+import { generateSecretKey } from '../core/function';
 
 const postData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { first_name, last_name } = req.body;
+    const { product_name, image_url = '', brand = '', status = 'active' } = req.body;
 
-    if (!first_name || !last_name) {
+    if (!product_name) {
       res.status(400).json({
         success: false,
         message: 'Fill in required information.',
@@ -13,23 +14,27 @@ const postData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    const product_id = req.body.product_id || crypto.randomUUID();
+    const secretKey = generateSecretKey();
+
     const sql = `
-      INSERT INTO employees_ 
-      (first_name, last_name) 
+      INSERT INTO product_ 
+      (product_id, product_name, image_url, brand, status) 
       VALUES 
-      (?, ?)
+      (?, ?, ?, ?, ?)
     `;
+    const params = [product_id, product_name, image_url, brand, status];
 
-    const params = [first_name, last_name];
-
-    await pool.execute(sql, params);
+    const [result] = await pool.execute(sql, params);
 
     res.json({
       success: true,
-      message: 'Data Inserted Successfully!',
+      message: 'Data inserted successfully!',
+      data: { product_id, product_name },
+      secretKey,
     });
-  } catch (error) {
-    console.error('Error inserting data:', error);
+  } catch (err) {
+    console.error('Error:', err);
     res.status(500).json({
       success: false,
       message: 'Failed to insert data into the database.',

@@ -3,37 +3,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.post_data = void 0;
+exports.postData = void 0;
 const db_1 = __importDefault(require("../server/db"));
-const post_data = async (req, res) => {
+const function_1 = require("../core/function");
+const postData = async (req, res) => {
     try {
-        const { first_name, last_name } = req.body;
-        if (!first_name || !last_name) {
+        const { product_name, image_url = '', brand = '', status = 'active' } = req.body;
+        if (!product_name) {
             res.status(400).json({
                 success: false,
                 message: 'Fill in required information.',
             });
             return;
         }
+        const product_id = req.body.product_id || crypto.randomUUID();
+        const secretKey = (0, function_1.generateSecretKey)();
         const sql = `
-      INSERT INTO employees_ 
-      (first_name, last_name) 
+      INSERT INTO product_ 
+      (product_id, product_name, image_url, brand, status) 
       VALUES 
-      (?, ?)
+      (?, ?, ?, ?, ?)
     `;
-        const params = [first_name, last_name];
-        await db_1.default.execute(sql, params);
+        const params = [product_id, product_name, image_url, brand, status];
+        const [result] = await db_1.default.execute(sql, params);
         res.json({
             success: true,
-            message: 'Data Inserted Successfully!',
+            message: 'Data inserted successfully!',
+            data: { product_id, product_name },
+            secretKey,
         });
     }
-    catch (error) {
-        console.error('Error inserting data:', error);
+    catch (err) {
+        console.error('Error:', err);
         res.status(500).json({
             success: false,
             message: 'Failed to insert data into the database.',
         });
     }
 };
-exports.post_data = post_data;
+exports.postData = postData;

@@ -15,27 +15,27 @@ export const logServerRunning = (port: number) => {
   }, 0);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.white], "██     ██  ██")}`);
-  }, 200);
+  }, 100);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.blue], "█████  █████")}`);
-  }, 400);
+  }, 200);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.white], "   ██  ██  ██")}`);
-  }, 600);
+  }, 300);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.red], "█████  ██   ██")}`);
-  }, 800);
+  }, 400);
   setTimeout(() => {
-    console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "----------------------> SR Server ❤️ ❤️")}`);
-  }, 1000);
+    console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "----------------------> SR Server ❤️♡ ❣️♡")}`);
+  }, 500);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], "Server running...")}`);
-  }, 1200);
+  }, 600);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.green], `Running on http://localhost:${port} ⚡`)}`);
-  }, 1400);
+  }, 700);
   setTimeout(() => {
     console.log(`${SetColor([COLOR.fg.magenta], "***** ***** ***** ***** ***** ***** *****")}`);
-  }, 1600);
+  }, 800);
 };
 

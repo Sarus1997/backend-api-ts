@@ -2,37 +2,32 @@ import { Request, Response } from 'express';
 import crypto from 'crypto';
 import pool from '../server/db';
 
-// ฟังก์ชันสำหรับสร้าง secret key
 const generateSecretKey = (): string => crypto.randomBytes(32).toString('hex');
 
 const getData = async (req: Request, res: Response): Promise<void> => {
   try {
-    // SQL query สำหรับดึงข้อมูลสินค้า
     const sqlProducts = `
       SELECT
         *
       FROM
-        __pos_product
+        product_
     `;
 
-    // ดึงข้อมูลจากฐานข้อมูล
+    //* Fetch data from the database
     const [rows] = await pool.query(sqlProducts);
 
-    // สร้าง secret key ใหม่สำหรับคำร้องนี้
+    //* Generate a unique secret key for the response
     const secretKey = generateSecretKey();
 
-    // ส่งข้อมูลกลับไปยัง client
     res.status(200).json({
       success: true,
       message: 'Data fetched successfully.',
       data: rows,
-      timestamp: new Date().toISOString(), // ใช้รูปแบบ ISO สำหรับ timestamp
+      timestamp: new Date().toISOString(),
       secretKey,
     });
   } catch (error: any) {
-    console.error('Error fetching data:', error);
-
-    // จัดการข้อผิดพลาดโดยส่งข้อความที่เหมาะสม
+    console.error(`Error fetching data [${req.method} ${req.url}]:`, error);
     res.status(500).json({
       success: false,
       message: 'Failed to fetch data from the database.',
