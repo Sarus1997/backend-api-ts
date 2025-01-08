@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateSecretKey } from '../core/function';
+import { generateSecretKey, generateProductId } from '../core/function';
 
 const postData = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -14,7 +14,7 @@ const postData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const product_id = req.body.product_id || crypto.randomUUID();
+    const product_id = generateProductId(req.body.product_id);
     const secretKey = generateSecretKey();
 
     const sql = `

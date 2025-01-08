@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getData = void 0;
-const crypto_1 = __importDefault(require("crypto"));
 const db_1 = __importDefault(require("../server/db"));
-const generateSecretKey = () => crypto_1.default.randomBytes(32).toString('hex');
+const function_1 = require("../core/function");
 const getData = async (req, res) => {
     try {
         const sqlProducts = `
@@ -18,7 +17,7 @@ const getData = async (req, res) => {
         //* Fetch data from the database
         const [rows] = await db_1.default.query(sqlProducts);
         //* Generate a unique secret key for the response
-        const secretKey = generateSecretKey();
+        const secretKey = (0, function_1.generateSecretKey)();
         res.status(200).json({
             success: true,
             message: 'Data fetched successfully.',

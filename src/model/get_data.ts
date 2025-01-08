@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
-import crypto from 'crypto';
 import pool from '../server/db';
-
-const generateSecretKey = (): string => crypto.randomBytes(32).toString('hex');
+import { generateSecretKey } from '../core/function';
 
 const getData = async (req: Request, res: Response): Promise<void> => {
   try {
