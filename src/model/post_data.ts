@@ -1,12 +1,20 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateSecretKey, generateID } from '../core/function';
+import { generateID, generateSecretKey, generateDateTime } from '../core/function';
 
 const postData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { product_name, image_url = '', brand = '', status = 'active' } = req.body;
+    const {
+      image_url,
+      product_name,
+      price,
+      brand,
+      status,
+      created_at,
+      updated_at,
+    } = req.body;
 
-    if (!product_name) {
+    if (!image_url || !product_name || !price || !brand) {
       res.status(400).json({
         success: false,
         message: 'Fill in required information.',
@@ -15,15 +23,32 @@ const postData = async (req: Request, res: Response): Promise<void> => {
     }
 
     const product_id = generateID(req.body.product_id);
+
+    //* Generate a unique secret key for the response
     const secretKey = generateSecretKey();
+    const datetime = generateDateTime();
+
+    //* Set default value
+    const productStatus = status || 'active';
+    const date_created = created_at || new Date();
+    const date_update = updated_at || '0';
 
     const sql = `
       INSERT INTO product_ 
-      (product_id, product_name, image_url, brand, status) 
+      (product_id, image_url, product_name, price, brand, status, created_at, updated_at) 
       VALUES 
-      (?, ?, ?, ?, ?)
+      (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    const params = [product_id, product_name, image_url, brand, status];
+    const params = [
+      product_id,
+      image_url,
+      product_name,
+      price,
+      brand,
+      productStatus,
+      date_created,
+      date_update,
+    ];
 
     const [result] = await pool.execute(sql, params);
 
@@ -31,8 +56,9 @@ const postData = async (req: Request, res: Response): Promise<void> => {
       success: true,
       message: 'Data inserted successfully!',
       data: { product_id, product_name },
-      secretKey,
       result,
+      secretKey,
+      datetime
     });
   } catch (err) {
     console.error('Error:', err);

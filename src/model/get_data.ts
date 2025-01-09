@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateSecretKey } from '../core/function';
+import { generateSecretKey, generateDateTime } from '../core/function';
 
 const getData = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -16,13 +16,14 @@ const getData = async (req: Request, res: Response): Promise<void> => {
 
     //* Generate a unique secret key for the response
     const secretKey = generateSecretKey();
+    const datetime = generateDateTime();
 
     res.status(200).json({
       success: true,
       message: 'Data fetched successfully.',
       data: rows,
-      timestamp: new Date().toISOString(),
       secretKey,
+      datetime
     });
   } catch (error: any) {
     console.error(`Error fetching data [${req.method} ${req.url}]:`, error);

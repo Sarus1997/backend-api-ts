@@ -8,8 +8,8 @@ const db_1 = __importDefault(require("../server/db"));
 const function_1 = require("../core/function");
 const postData = async (req, res) => {
     try {
-        const { product_name, image_url = '', brand = '', status = 'active' } = req.body;
-        if (!product_name) {
+        const { image_url, product_name, price, brand, status, created_at, updated_at, } = req.body;
+        if (!image_url || !product_name || !price || !brand) {
             res.status(400).json({
                 success: false,
                 message: 'Fill in required information.',
@@ -17,21 +17,37 @@ const postData = async (req, res) => {
             return;
         }
         const product_id = (0, function_1.generateID)(req.body.product_id);
+        //* Generate a unique secret key for the response
         const secretKey = (0, function_1.generateSecretKey)();
+        const datetime = (0, function_1.generateDateTime)();
+        //* Set default value
+        const productStatus = status || 'active';
+        const date_created = created_at || new Date();
+        const date_update = updated_at || '0';
         const sql = `
       INSERT INTO product_ 
-      (product_id, product_name, image_url, brand, status) 
+      (product_id, image_url, product_name, price, brand, status, created_at, updated_at) 
       VALUES 
-      (?, ?, ?, ?, ?)
+      (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-        const params = [product_id, product_name, image_url, brand, status];
+        const params = [
+            product_id,
+            image_url,
+            product_name,
+            price,
+            brand,
+            productStatus,
+            date_created,
+            date_update,
+        ];
         const [result] = await db_1.default.execute(sql, params);
         res.json({
             success: true,
             message: 'Data inserted successfully!',
             data: { product_id, product_name },
-            secretKey,
             result,
+            secretKey,
+            datetime
         });
     }
     catch (err) {

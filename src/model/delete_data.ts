@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateSecretKey } from '../core/function';
+import { generateSecretKey, generateDateTime } from '../core/function';
 
 const deleteData = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -15,6 +15,7 @@ const deleteData = async (req: Request, res: Response): Promise<void> => {
     }
 
     const secretKey = generateSecretKey();
+    const datetime = generateDateTime();
 
     const sql = `
       DELETE FROM product_
@@ -35,8 +36,9 @@ const deleteData = async (req: Request, res: Response): Promise<void> => {
     res.json({
       success: true,
       message: 'Data deleted successfully!',
-      secretKey,
       result,
+      secretKey,
+      datetime,
     });
   } catch (err) {
     console.error('Error:', err);

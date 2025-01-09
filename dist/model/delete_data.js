@@ -17,6 +17,7 @@ const deleteData = async (req, res) => {
             return;
         }
         const secretKey = (0, function_1.generateSecretKey)();
+        const datetime = (0, function_1.generateDateTime)();
         const sql = `
       DELETE FROM product_
       WHERE product_id = ?
@@ -33,8 +34,9 @@ const deleteData = async (req, res) => {
         res.json({
             success: true,
             message: 'Data deleted successfully!',
-            secretKey,
             result,
+            secretKey,
+            datetime,
         });
     }
     catch (err) {

@@ -18,12 +18,13 @@ const getData = async (req, res) => {
         const [rows] = await db_1.default.query(sqlProducts);
         //* Generate a unique secret key for the response
         const secretKey = (0, function_1.generateSecretKey)();
+        const datetime = (0, function_1.generateDateTime)();
         res.status(200).json({
             success: true,
             message: 'Data fetched successfully.',
             data: rows,
-            timestamp: new Date().toISOString(),
             secretKey,
+            datetime
         });
     }
     catch (error) {
