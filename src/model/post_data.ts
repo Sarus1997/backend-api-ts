@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../server/db';
-import { generateID, generateSecretKey, generateDateTime } from '../core/function';
+import { generateHexID, generateSecretKey, generateDateTime } from '../core/function';
 
 const postData = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -22,7 +22,7 @@ const postData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const product_id = generateID(req.body.product_id);
+    const product_id = generateHexID(req.body.product_id);
 
     //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();

@@ -4,8 +4,8 @@ import crypto from 'crypto';
 const generateSecretKey = (): string => crypto.randomBytes(32).toString('hex');
 
 //* ฟังก์ชันสำหรับสร้าง id แบบสุ่ม ไม่ซ้ำ *// 
-const generateID = (providedId?: string): string => {
-  return providedId || crypto.randomUUID();
+const generateHexID = (providedId?: string): string => {
+  return providedId || crypto.randomBytes(32).toString('hex');
 };
 
 //* ฟังก์ชันสำหรับสร้างวันที่และเวลา *//
@@ -21,4 +21,4 @@ const generateDateTime = (): string => {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 };
 
-export { generateSecretKey, generateID, generateDateTime };
+export { generateSecretKey, generateHexID, generateDateTime };
