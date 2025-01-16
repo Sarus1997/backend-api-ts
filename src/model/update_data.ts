@@ -17,11 +17,11 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ success: false, message: 'Fill in required information.' });
       return;
     }
-    //* Generate a unique secret key for the response
+    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
-    //* Set default value
+    //* ตั้งค่าเริ่มต้น
     const fieldsToUpdate = [];
     const params = [];
 

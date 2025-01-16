@@ -14,6 +14,7 @@ const deleteData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    //*  สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 

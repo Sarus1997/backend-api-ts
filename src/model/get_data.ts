@@ -11,10 +11,10 @@ const getData = async (req: Request, res: Response): Promise<void> => {
         product_
     `;
 
-    //* Fetch data from the database
+    //* ดึงข้อมูลจากฐานข้อมูล
     const [rows] = await pool.query(sqlProducts);
 
-    //* Generate a unique secret key for the response
+    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
@@ -35,4 +35,40 @@ const getData = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { getData };
+const getFixData = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sqlProducts = `
+      SELECT
+        image_url,
+        product_name,
+        price,
+        brand
+      FROM
+        product_
+    `;
+
+    //* ดึงข้อมูลจากฐานข้อมูล
+    const [rows] = await pool.query(sqlProducts);
+
+    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
+    const secretKey = generateSecretKey();
+    const datetime = generateDateTime();
+
+    res.status(200).json({
+      success: true,
+      message: 'Data fetched successfully.',
+      data: rows,
+      secretKey,
+      datetime
+    });
+  } catch (error: any) {
+    console.error(`Error fetching data [${req.method} ${req.url}]:`, error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch data from the database.',
+      error: error.message || 'Unknown error occurred.',
+    });
+  }
+};
+
+export { getData, getFixData };

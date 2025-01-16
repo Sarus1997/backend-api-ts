@@ -24,11 +24,11 @@ const postData = async (req: Request, res: Response): Promise<void> => {
 
     const product_id = generateID(req.body.product_id);
 
-    //* Generate a unique secret key for the response
+    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
-    //* Set default value
+    //* ตั้งค่าเริ่มต้น
     const productStatus = status || 'active';
     const date_created = created_at || new Date();
     const date_update = updated_at || '0';
