@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import pool from '../server/db';
 import { generateSecretKey, generateDateTime } from '../core/function';
 
+// ฟังก์ชันดึงข้อมูลทั้งหมดจากฐานข้อมูล
 const getData = async (req: Request, res: Response): Promise<void> => {
   try {
     const sqlProducts = `
@@ -11,10 +12,10 @@ const getData = async (req: Request, res: Response): Promise<void> => {
         product_
     `;
 
-    //* ดึงข้อมูลจากฐานข้อมูล
+    // ดึงข้อมูลจากฐานข้อมูล
     const [rows] = await pool.query(sqlProducts);
 
-    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
+    // สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
@@ -23,7 +24,7 @@ const getData = async (req: Request, res: Response): Promise<void> => {
       message: 'Data fetched successfully.',
       data: rows,
       secretKey,
-      datetime
+      datetime,
     });
   } catch (error: any) {
     console.error(`Error fetching data [${req.method} ${req.url}]:`, error);
@@ -35,6 +36,7 @@ const getData = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+// ฟังก์ชันดึงข้อมูลที่มีฟิลด์เฉพาะจากฐานข้อมูล
 const getFixData = async (req: Request, res: Response): Promise<void> => {
   try {
     const sqlProducts = `
@@ -47,10 +49,10 @@ const getFixData = async (req: Request, res: Response): Promise<void> => {
         product_
     `;
 
-    //* ดึงข้อมูลจากฐานข้อมูล
+    // ดึงข้อมูลจากฐานข้อมูล
     const [rows] = await pool.query(sqlProducts);
 
-    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
+    // สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
@@ -59,7 +61,7 @@ const getFixData = async (req: Request, res: Response): Promise<void> => {
       message: 'Data fetched successfully.',
       data: rows,
       secretKey,
-      datetime
+      datetime,
     });
   } catch (error: any) {
     console.error(`Error fetching data [${req.method} ${req.url}]:`, error);
