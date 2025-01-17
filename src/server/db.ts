@@ -5,11 +5,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || '13.229.180.6',
+  host: process.env.DB_HOST || '127.0.0.1',
   port: parseInt(process.env.DB_PORT || "3306"),
-  user: process.env.DB_USER || 'admin',
-  password: process.env.DB_PASSWORD || '7P£]st11j%s7',
-  database: process.env.DB_NAME || 'sym',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || 'root',
+  database: process.env.DB_NAME || 'employee_db',
 
   //* การตั้งค่าการเชื่อมต่อเพิ่มเติม *//
   waitForConnections: true,
