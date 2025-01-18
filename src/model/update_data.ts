@@ -19,11 +19,11 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
+    //* สร้างคีย์ลับเฉพาะสำหรับการตอบสนอง
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
-    // ตั้งค่าเริ่มต้นสำหรับฟิลด์ที่จะอัปเดต
+    //* ตั้งค่าเริ่มต้นสำหรับฟิลด์ที่จะอัปเดต
     const fieldsToUpdate: string[] = [];
     const params: any[] = [];
 
@@ -36,7 +36,7 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       updated_at: updated_at || new Date()
     };
 
-    // สร้างคำสั่ง SQL สำหรับอัปเดตฟิลด์ที่มีการเปลี่ยนแปลง
+    //* สร้างคำสั่ง SQL สำหรับอัปเดตฟิลด์ที่มีการเปลี่ยนแปลง
     for (const [key, value] of Object.entries(fields)) {
       if (value !== undefined) {
         fieldsToUpdate.push(`${key} = ?`);
@@ -49,14 +49,14 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // เพิ่ม product_id ลงใน params เพื่อใช้ใน WHERE condition
+    //* เพิ่ม product_id ลงใน params เพื่อใช้ใน WHERE condition
     const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
     params.push(product_id);
 
-    // ทำการ execute คำสั่ง SQL
+    //* ทำการ execute คำสั่ง SQL
     const [result] = await pool.execute(sql, params);
 
-    // ตรวจสอบว่าได้อัปเดตข้อมูลจริงๆ หรือไม่
+    //* ตรวจสอบว่าได้อัปเดตข้อมูลจริงๆ หรือไม่
     if ((result as any).affectedRows === 0) {
       res.status(404).json({
         success: false,

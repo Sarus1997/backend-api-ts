@@ -6,7 +6,7 @@ const deleteData = async (req: Request<{}, {}, { product_id: string }>, res: Res
   try {
     const { product_id } = req.body;
 
-    // ตรวจสอบว่า product_id ถูกส่งมาหรือไม่
+    //* ตรวจสอบว่า product_id ถูกส่งมาหรือไม่
     if (!product_id) {
       res.status(400).json({
         success: false,
@@ -15,21 +15,21 @@ const deleteData = async (req: Request<{}, {}, { product_id: string }>, res: Res
       return;
     }
 
-    // สร้างคีย์ลับและเวลาปัจจุบัน
+    //* สร้างคีย์ลับและเวลาปัจจุบัน
     const secretKey = generateSecretKey();
     const datetime = generateDateTime();
 
-    // SQL สำหรับการลบข้อมูล
+    //* SQL สำหรับการลบข้อมูล
     const sql = `
       DELETE FROM product_
       WHERE product_id = ?
     `;
     const params = [product_id];
 
-    // ใช้ MySQL Pool เพื่อ execute SQL
+    //* ใช้ MySQL Pool เพื่อ execute SQL
     const [result] = await pool.execute(sql, params);
 
-    // ตรวจสอบว่าไม่มีแถวที่ถูกลบ
+    //* ตรวจสอบว่าไม่มีแถวที่ถูกลบ
     if ((result as any).affectedRows === 0) {
       res.status(404).json({
         success: false,
@@ -38,16 +38,16 @@ const deleteData = async (req: Request<{}, {}, { product_id: string }>, res: Res
       return;
     }
 
-    // ส่งผลลัพธ์กลับไป
+    //* ส่งผลลัพธ์กลับไป
     res.json({
       success: true,
       message: 'Data deleted successfully!',
       result,
-      secretKey, // ส่งคีย์ลับกลับหากจำเป็น
-      datetime,  // ส่งเวลาปัจจุบันกลับหากจำเป็น
+      secretKey, //* ส่งคีย์ลับกลับหากจำเป็น
+      datetime,  //* ส่งเวลาปัจจุบันกลับหากจำเป็น
     });
   } catch (err) {
-    // จัดการข้อผิดพลาด
+    //* จัดการข้อผิดพลาด
     console.error('Error:', err);
     res.status(500).json({
       success: false,
