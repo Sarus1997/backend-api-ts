@@ -1,7 +1,5 @@
 import crypto from 'crypto';
 
-//* ฟังก์ชันสำหรับสร้าง secret key *//
-const generateSecretKey = (): string => crypto.randomBytes(32).toString('hex');
 
 //* ฟังก์ชันสำหรับสร้าง id แบบสุ่ม ไม่ซ้ำ *// 
 const generateHexID = (providedId?: string): string => {
@@ -21,4 +19,4 @@ const generateDateTime = (): string => {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 };
 
-export { generateSecretKey, generateHexID, generateDateTime };
+export { generateHexID, generateDateTime };
