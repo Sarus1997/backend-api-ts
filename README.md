@@ -31,11 +31,6 @@ cd backend-api-ts
 | PUT         | `/api/update_data` | Update data          |
 | DELETE      | `/api/delete_data` | Delete a user by ID  |
 
-## ✨ Happy Coding! 🎉
-
-This version organizes the information clearly and includes markdown tables and sections for better readability.
-
-##
 
 ```bash
 Developed ⚒️ by Saharat Suwannapapond 

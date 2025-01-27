@@ -6,8 +6,6 @@ import { postData } from '../model/post_data';
 import { updateData } from '../model/update_data';
 import { deleteData } from '../model/delete_data';
 
-
-
 //* GET *//
 router.get('/api/get_data', getData);
 router.get('/api/get_fix_data', getFixData);
