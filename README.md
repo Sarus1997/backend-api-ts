@@ -44,7 +44,7 @@ src/
 ### User Routes (src/routes/routes.ts)
 
 ```typescript
-import express from 'express';
+import { Router } from 'express';
 const router = Router();
 
 router.get('/'); // Welcome Page
@@ -59,9 +59,11 @@ export default router;
 ### Main Application (index.ts)
 
 ```typescript
-import express from 'express';
-import userRoutes from './routes/userRoutes';
-import { errorHandler } from './middleware/errorHandler';
+import express, { Application } from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import { logServerRunning } from './src/config/logger';
+import router from './src/routes/route';
 
   server.use(express.static(path.join(__dirname, 'public')));
   server.use(bodyParser.json());
