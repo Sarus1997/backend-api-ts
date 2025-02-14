@@ -16,14 +16,11 @@ const postData = async (req, res) => {
             });
             return;
         }
-        const product_id = (0, function_1.generateID)(req.body.product_id);
-        //* Generate a unique secret key for the response
-        const secretKey = (0, function_1.generateSecretKey)();
+        const product_id = req.body.product_id || (0, function_1.generateHexID)();
         const datetime = (0, function_1.generateDateTime)();
-        //* Set default value
         const productStatus = status || 'active';
         const date_created = created_at || new Date();
-        const date_update = updated_at || '0';
+        const date_update = updated_at || null;
         const sql = `
       INSERT INTO product_ 
       (product_id, image_url, product_name, price, brand, status, created_at, updated_at) 
@@ -46,7 +43,6 @@ const postData = async (req, res) => {
             message: 'Data inserted successfully!',
             data: { product_id, product_name },
             result,
-            secretKey,
             datetime
         });
     }
@@ -54,7 +50,7 @@ const postData = async (req, res) => {
         console.error('Error:', err);
         res.status(500).json({
             success: false,
-            message: 'Failed to insert data into the database.',
+            message: err instanceof Error ? err.message : 'Failed to insert data into the database.',
         });
     }
 };

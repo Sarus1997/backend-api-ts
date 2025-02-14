@@ -2,44 +2,72 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logServerRunning = exports.logServerError = void 0;
 const { SetColor, COLOR } = require('../config/colorUtils');
+// Emoji constants
+const EMOJIS = {
+    HEART: '💖',
+    ROCKET: '🚀',
+    BOLT: '⚡',
+    SPARKLES: '✨',
+    STAR: '⭐'
+};
+// ASCII art for banner
+const SERVER_BANNER = `
+   _____ _____    _____ ______ _______      ________ _____  
+  / ____|  __ \\  / ____|  ____|  __ \\ \\    / /  ____|  __ \\ 
+ | (___ | |__) || (___ | |__  | |__) \\ \\  / /| |__  | |__) |
+  \\___ \\|  _  /  \\___ \\|  __| |  _  / \\ \\/ / |  __| |  _  / 
+  ____) | | \\ \\  ____) | |____| | \\ \\  \\  /  | |____| | \\ \\ 
+ |_____/|_|  \\_\\|_____/|______|_|  \\_\\  \\/   |______|_|  \\_\\
+`;
+// Function to get current timestamp
+const getTimestamp = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    const second = date.getSeconds().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+};
+// Function to create loading animation frames
+const createLoadingFrame = (index) => {
+    const dots = '•'.repeat(index);
+    const spaces = ' '.repeat(8 - index);
+    return `[${dots}${spaces}]`;
+};
+// Main server error logger
 const logServerError = (error) => {
-    console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.red], "Server error:")} ${error}`);
+    console.log(`${SetColor([COLOR.fg.red], '╔════ ERROR ════╗')}\n` +
+        `${SetColor([COLOR.fg.magenta], '[Server]')} ${SetColor([COLOR.fg.red], 'Error:')} ${error}\n` +
+        `${SetColor([COLOR.fg.red], '╚═══════════════╝')}`);
 };
 exports.logServerError = logServerError;
+// Enhanced server startup logger
 const logServerRunning = (port) => {
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "->*")}`);
-    }, 0);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "-->*")}`);
-    }, 100);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "--->*")}`);
-    }, 200);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "---->* SR Server ❤️♡ ❣️♡")}`);
-    }, 300);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "----->*")} ${SetColor([COLOR.fg.green], `${getTimestamp()}`)}`);
-    }, 400);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "------>*")} ${SetColor([COLOR.fg.green], "Server running...")}`);
-    }, 500);
-    setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "------->*")} ${SetColor([COLOR.fg.green], `Running on http://localhost:${port} ⚡`)}`);
-    }, 600);
-    function getTimestamp() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const hour = date.getHours().toString().padStart(2, '0');
-        const minute = date.getMinutes().toString().padStart(2, '0');
-        const second = date.getSeconds().toString().padStart(2, '0');
-        return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    // Clear console first
+    console.clear();
+    // Show ASCII banner
+    console.log(SetColor([COLOR.fg.cyan], SERVER_BANNER));
+    // Loading animation
+    for (let i = 0; i <= 8; i++) {
+        setTimeout(() => {
+            const frame = createLoadingFrame(i);
+            const message = i === 8 ? 'Complete!' : 'Loading...';
+            console.log(`${SetColor([COLOR.fg.magenta], '[Server]')} ${SetColor([COLOR.fg.yellow], frame)} ${message}`);
+        }, i * 100);
     }
+    // Server info messages
     setTimeout(() => {
-        console.log(`${SetColor([COLOR.fg.magenta], "[Server]")} ${SetColor([COLOR.fg.yellow], "-------->*")} ${SetColor([COLOR.fg.magenta], "***** ***** ***** ***** ***** *****")}`);
-    }, 700);
+        console.log('\n' + SetColor([COLOR.fg.magenta], '╔══════════════ SERVER INFO ══════════════╗'));
+        console.log(`${SetColor([COLOR.fg.magenta], '║')} ${EMOJIS.SPARKLES} Status    : ${SetColor([COLOR.fg.green], 'Running')}`);
+        console.log(`${SetColor([COLOR.fg.magenta], '║')} ${EMOJIS.BOLT} Timestamp : ${SetColor([COLOR.fg.green], getTimestamp())}`);
+        console.log(`${SetColor([COLOR.fg.magenta], '║')} ${EMOJIS.ROCKET} URL       : ${SetColor([COLOR.fg.cyan], `http://localhost:${port}`)}`);
+        console.log(SetColor([COLOR.fg.magenta], '╚═════════════════════════════════════════╝'));
+    }, 1000);
+    // Final message
+    setTimeout(() => {
+        console.log('\n' + SetColor([COLOR.fg.green], `${EMOJIS.HEART} SR Server is ready to serve! ${EMOJIS.STAR}`));
+    }, 1200);
 };
 exports.logServerRunning = logServerRunning;

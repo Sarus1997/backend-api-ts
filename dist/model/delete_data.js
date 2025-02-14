@@ -16,7 +16,6 @@ const deleteData = async (req, res) => {
             });
             return;
         }
-        const secretKey = (0, function_1.generateSecretKey)();
         const datetime = (0, function_1.generateDateTime)();
         const sql = `
       DELETE FROM product_
@@ -35,7 +34,6 @@ const deleteData = async (req, res) => {
             success: true,
             message: 'Data deleted successfully!',
             result,
-            secretKey,
             datetime,
         });
     }
@@ -43,7 +41,7 @@ const deleteData = async (req, res) => {
         console.error('Error:', err);
         res.status(500).json({
             success: false,
-            message: 'Failed to delete data from the database.',
+            message: err instanceof Error ? err.message : 'Failed to delete data from the database.',
         });
     }
 };

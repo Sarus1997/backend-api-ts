@@ -10,19 +10,17 @@ const updateData = async (req, res) => {
     try {
         const { product_id, image_url, product_name, price, brand, status, updated_at } = req.body;
         if (!product_id) {
-            res.status(400).json({ success: false, message: 'Fill in required information.' });
+            res.status(400).json({ success: false, message: 'product_id is required.' });
             return;
         }
-        //* Generate a unique secret key for the response
-        const secretKey = (0, function_1.generateSecretKey)();
         const datetime = (0, function_1.generateDateTime)();
-        //* Set default value
         const fieldsToUpdate = [];
         const params = [];
         const fields = {
             image_url,
             product_name,
-            price, brand,
+            price,
+            brand,
             status,
             updated_at: updated_at || new Date()
         };
@@ -39,15 +37,18 @@ const updateData = async (req, res) => {
         const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
         params.push(product_id);
         const [result] = await db_1.default.execute(sql, params);
+        if (result.affectedRows === 0) {
+            res.status(404).json({
+                success: false,
+                message: `Product with ID ${product_id} not found or no changes were made.`,
+            });
+            return;
+        }
         res.json({
             success: true,
             message: 'Data updated successfully!',
-            data: {
-                product_id,
-                product_name
-            },
+            data: { product_id, product_name },
             result,
-            secretKey,
             datetime,
         });
     }
