@@ -48,10 +48,10 @@ import express from 'express';
 const router = Router();
 
 router.get('/'); // Welcome Page
-router.get("/api/get_data", getData); // Get Data
-router.post('/api/post_data', postData); // Create Data
-router.put('/api/update_data', updateData); // Update Data
-router.delete('/api/delete_data', deleteData); // Delete Data
+router.get("/api/get_data", getData);
+router.post('/api/post_data', postData);
+router.put('/api/update_data', updateData);
+router.delete('/api/delete_data', deleteData);
 
 export default router;
 ```
@@ -63,18 +63,20 @@ import express from 'express';
 import userRoutes from './routes/userRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+  server.use(express.static(path.join(__dirname, 'public')));
+  server.use(bodyParser.json());
+  server.use(router);
+  server.listen(port, () => {
+    logServerRunning(port);
+    open(`http://localhost:${port}`);
+  });
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use('/', userRoutes);
-app.use(errorHandler);
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
+  try {
+    const connection = await pool.getConnection();
+    connection.release();
+  } catch (error) {
+    console.error('Error connecting to the database:', error.message);
+  }
 });
 ```
 
