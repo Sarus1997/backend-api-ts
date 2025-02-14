@@ -24,87 +24,42 @@ npm run dev
 ```
 src/
 ├── config/
-│   └── database.ts
-├── controllers/
-│   └── userController.ts
-├── middleware/
-│   └── errorHandler.ts
+│   └── colorUtils.ts
+├── core/
+│   └── function.ts
+├── model/
+│   └── get_data.ts
+│   └── post_data.ts
+│   └── update_data.ts
+│   └── delete_data.ts
 ├── routes/
-│   └── userRoutes.ts
-├── types/
-│   └── user.types.ts
-└── app.ts
+│   └── route.ts
+├── server/
+    └── db.ts
+
 ```
 
 ## 🛠️ Core Files
 
-### User Types (src/types/user.types.ts)
-
-```typescript
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  created_at: Date;
-}
-```
-
-### Database Configuration (src/config/database.ts)
-
-```typescript
-import { Pool } from 'pg';
-
-export const pool = new Pool({
-  user: 'your_username',
-  host: 'localhost',
-  database: 'your_database',
-  password: 'your_password',
-  port: 5432,
-});
-```
-
-### Error Handler (src/middleware/errorHandler.ts)
-
-```typescript
-import { Request, Response, NextFunction } from 'express';
-
-export const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  console.error(err.stack);
-  res.status(500).json({
-    status: 'error',
-    message: 'Something went wrong!',
-    error: process.env.NODE_ENV === 'development' ? err.message : undefined
-  });
-};
-```
-
-### User Routes (src/routes/userRoutes.ts)
+### User Routes (src/routes/routes.ts)
 
 ```typescript
 import express from 'express';
-import { userController } from '../controllers/userController';
+const router = Router();
 
-const router = express.Router();
-
-router.get('/', userController.welcomePage);
-router.get('/api/get_data', userController.getAllData);
-router.post('/api/post_data', userController.postData);
-router.put('/api/update_data/:id', userController.updateData);
-router.delete('/api/delete_data/:id', userController.deleteData);
+router.get('/'); // Welcome Page
+router.get("/api/get_data", getData); // Get Data
+router.post('/api/post_data', postData); // Create Data
+router.put('/api/update_data', updateData); // Update Data
+router.delete('/api/delete_data', deleteData); // Delete Data
 
 export default router;
 ```
 
-### Main Application (src/app.ts)
+### Main Application (index.ts)
 
 ```typescript
 import express from 'express';
-import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -167,5 +122,6 @@ app.listen(PORT, () => {
   }
 }
 ```
-
+```
 Developed ⚒️ by Saharat Suwannapapond
+```
