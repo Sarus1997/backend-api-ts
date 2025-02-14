@@ -138,18 +138,20 @@ app.listen(PORT, () => {
 ```json
 {
     "dependencies": {
-        "cors": "^2.8.5",
+       "bcrypt": "^5.1.1",
+        "body-parser": "^1.20.3",
+        "dotenv": "^16.4.7",
         "express": "^4.18.2",
-        "pg": "^8.11.3"
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.11.5",
+        "open": "^10.1.0"
     },
     "devDependencies": {
-        "@types/cors": "^2.8.17",
-        "@types/express": "^4.17.21",
-        "@types/node": "^20.11.19",
-        "@types/pg": "^8.11.0",
-        "nodemon": "^3.0.3",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.3.3"
+        "@types/express": "^4.17.17",
+        "@types/node": "^20.5.0",
+        "nodemon": "^3.0.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.1.6"
     }
 }
 ```
@@ -159,12 +161,10 @@ app.listen(PORT, () => {
 ```json
 {
     "scripts": {
-        "start": "node dist/app.js",
-        "dev": "nodemon src/app.ts",
-        "build": "tsc",
-        "lint": "eslint . --ext .ts",
-        "test": "jest"
-    }
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nodemon --exec ts-node index.ts",
+      "build": "tsc"
+  }
 }
 ```
 
