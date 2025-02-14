@@ -15,8 +15,8 @@ Follow these steps to set up and run the project:
 ```bash
 git clone https://github.com/Sarus1997/backend-api-ts.git
 cd backend-api-ts 
-➡️ Run `npm install`
-➡️ Run `npm run dev`
+npm install
+npm run dev
 ```
 
 ## 📁 Project Structure
@@ -42,10 +42,10 @@ src/
 
 ```typescript
 export interface User {
-    id: number;
-    username: string;
-    email: string;
-    created_at: Date;
+  id: number;
+  username: string;
+  email: string;
+  created_at: Date;
 }
 ```
 
@@ -55,11 +55,11 @@ export interface User {
 import { Pool } from 'pg';
 
 export const pool = new Pool({
-    user: 'your_username',
-    host: 'localhost',
-    database: 'your_database',
-    password: 'your_password',
-    port: 5432,
+  user: 'your_username',
+  host: 'localhost',
+  database: 'your_database',
+  password: 'your_password',
+  port: 5432,
 });
 ```
 
@@ -69,17 +69,17 @@ export const pool = new Pool({
 import { Request, Response, NextFunction } from 'express';
 
 export const errorHandler = (
-    err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
-    console.error(err.stack);
-    res.status(500).json({
-        status: 'error',
-        message: 'Something went wrong!',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
+  console.error(err.stack);
+  res.status(500).json({
+    status: 'error',
+    message: 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 };
 ```
 
@@ -119,7 +119,7 @@ app.use('/', userRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });
 ```
 
@@ -137,22 +137,22 @@ app.listen(PORT, () => {
 
 ```json
 {
-    "dependencies": {
-       "bcrypt": "^5.1.1",
-        "body-parser": "^1.20.3",
-        "dotenv": "^16.4.7",
-        "express": "^4.18.2",
-        "jsonwebtoken": "^9.0.2",
-        "mysql2": "^3.11.5",
-        "open": "^10.1.0"
-    },
-    "devDependencies": {
-        "@types/express": "^4.17.17",
-        "@types/node": "^20.5.0",
-        "nodemon": "^3.0.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.1.6"
-    }
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.5",
+    "open": "^10.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.5.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
 }
 ```
 
@@ -160,14 +160,12 @@ app.listen(PORT, () => {
 
 ```json
 {
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "nodemon --exec ts-node index.ts",
-      "build": "tsc"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec ts-node index.ts",
+    "build": "tsc"
   }
 }
 ```
 
-```bash
-Developed ⚒️ by Saharat Suwannapapond 
-```
+Developed ⚒️ by Saharat Suwannapapond
