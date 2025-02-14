@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { logServerRunning } from './src/config/logger';
+import open from 'open';
 import pool from './src/server/db';
 import router from './src/routes/route';
 
@@ -207,7 +208,7 @@ import router from './src/routes/route';
                     <div class="feature-card">
                         <div class="feature-icon">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
                             </svg>
                         </div>
                         <h3>TypeScript First</h3>
@@ -230,6 +231,7 @@ import router from './src/routes/route';
   //* Start server *//
   server.listen(port, () => {
     logServerRunning(port);
+    open(`http://localhost:${port}`);
   });
 
   //* Test database connection *//
@@ -240,3 +242,4 @@ import router from './src/routes/route';
     console.error('Error connecting to the database:', error.message);
   }
 })();
+
