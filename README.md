@@ -2,7 +2,7 @@
 
 ## Description
 
-### API Built with Express.js and TypeScript
+### API Built with TypeScript
 
 This project is a robust and efficient API using Express.js and TypeScript. It provides basic CRUD (Create, Read, Update, Delete) operations to manage users effectively with type safety and proper error handling.
 
@@ -16,30 +16,31 @@ Follow these steps to set up and run the project:
 git clone https://github.com/Sarus1997/backend-api-ts.git
 cd backend-api-ts 
 npm install
-npm run dev
+npm run dev (Develop)
+npm start (Production)
 ```
 
 ## 📁 Project Structure
+Use the tsc command to create a dist.
 
-```
-src/
-├── config/
-│   └── colorUtils.ts
-├── core/
-│   └── function.ts
-├── model/
-│   └── get_data.ts
-│   └── post_data.ts
-│   └── update_data.ts
-│   └── delete_data.ts
-├── home.ts
-├── routes/
-│   └── route.ts
-├── server/
-    └── db.ts
-index.ts
-generateSecretKey.ts
-chack_pass.ts
+```project-root/
+├── src/
+│    ├── config/
+│    │   └── colorUtils.ts
+│    ├── core/
+│    │   └── function.ts
+│    ├── model/
+│    │   └── get_data.ts
+│    │   └── post_data.ts
+│    │   └── update_data.ts
+│    │   └── delete_data.ts
+│    ├── routes/
+│    │   └── route.ts
+│    ├── server/
+│        └── db.ts
+├── index.ts
+├── generateSecretKey.ts
+├── chack_pass.ts
 ```
 
 ## 🛠️ Core Files
