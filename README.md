@@ -32,11 +32,14 @@ src/
 │   └── post_data.ts
 │   └── update_data.ts
 │   └── delete_data.ts
+├── home.ts
 ├── routes/
 │   └── route.ts
 ├── server/
     └── db.ts
-
+index.ts
+generateSecretKey.ts
+chack_pass.ts
 ```
 
 ## 🛠️ Core Files
@@ -62,24 +65,31 @@ export default router;
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import dotenv from 'dotenv';
 import { logServerRunning } from './src/config/logger';
 import router from './src/routes/route';
+import { getHomePage } from './src/home';
+
+dotenv.config();
+
+(async () => {
+  const port: number = 8080;
+  const server: Application = express();
 
   server.use(express.static(path.join(__dirname, 'public')));
   server.use(bodyParser.json());
   server.use(router);
-  server.listen(port, () => {
-    logServerRunning(port);
-    open(`http://localhost:${port}`);
+
+  //* หน้าแรก
+  server.get('/', (req, res) => {
+    res.send(getHomePage());
   });
 
-  try {
-    const connection = await pool.getConnection();
-    connection.release();
-  } catch (error) {
-    console.error('Error connecting to the database:', error.message);
-  }
-});
+  server.listen(port, () => {
+    logServerRunning(port);
+  });
+})();
+
 ```
 
 ## 📂 API Endpoints
@@ -97,13 +107,12 @@ import router from './src/routes/route';
 ```json
 {
   "dependencies": {
-    "bcrypt": "^5.1.1",
+ "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.5",
-    "open": "^10.1.0"
+    "mysql2": "^3.11.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
