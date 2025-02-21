@@ -1,6 +1,6 @@
 const { SetColor, COLOR } = require('../config/colorUtils');
 
-// Emoji constants
+//* อิโมจิ
 const EMOJIS = {
   HEART: '💖',
   ROCKET: '🚀',
@@ -9,17 +9,17 @@ const EMOJIS = {
   STAR: '⭐'
 };
 
-// ASCII art for banner
+//* ออกแบบ ASCII สำหรับแบนเนอร์
 const SERVER_BANNER = `
-   _____ _____    _____ ______ _______      ________ _____  
-  / ____|  __ \\  / ____|  ____|  __ \\ \\    / /  ____|  __ \\ 
- | (___ | |__) || (___ | |__  | |__) \\ \\  / /| |__  | |__) |
-  \\___ \\|  _  /  \\___ \\|  __| |  _  / \\ \\/ / |  __| |  _  / 
-  ____) | | \\ \\  ____) | |____| | \\ \\  \\  /  | |____| | \\ \\ 
- |_____/|_|  \\_\\|_____/|______|_|  \\_\\  \\/   |______|_|  \\_\\
+   _____ _____     _____ ______ _______      ________ _____  
+  / ____|  __ \\   / ____|  ____|  __ \\ \\    / /  ____|  __ \\ 
+ | (___ | |__) | | (___ | |__  | |__) \\ \\  / /| |__  | |__) |
+  \\___ \\|  _  /   \\___ \\|  __| |  _  / \\ \\/ / |  __| |  _  / 
+  ____) | | \\ \\   ____) | |____| | \\ \\  \\  /  | |____| | \\ \\ 
+ |_____/|_|  \\_\\ |_____/|______|_|  \\_\\  \\/   |______|_|  \\_\\
 `;
 
-// Function to get current timestamp
+//* ฟังก์ชั่นรับข้อมูลประทับเวลาปัจจุบัน
 const getTimestamp = (): string => {
   const date = new Date();
   const year = date.getFullYear();
@@ -31,14 +31,14 @@ const getTimestamp = (): string => {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 };
 
-// Function to create loading animation frames
+//* ฟังก์ชั่นในการสร้างเฟรมแอนิเมชั่นการโหลด
 const createLoadingFrame = (index: number): string => {
   const dots = '•'.repeat(index);
   const spaces = ' '.repeat(8 - index);
   return `[${dots}${spaces}]`;
 };
 
-// Main server error logger
+//* เครื่องบันทึกข้อผิดพลาดเซิร์ฟเวอร์หลัก
 export const logServerError = (error: any) => {
   console.log(
     `${SetColor([COLOR.fg.red], '╔════ ERROR ════╗')}\n` +
@@ -47,15 +47,15 @@ export const logServerError = (error: any) => {
   );
 };
 
-// Enhanced server startup logger
+//* ตัวบันทึกการเริ่มต้นเซิร์ฟเวอร์ที่ได้รับการปรับปรุง
 export const logServerRunning = (port: number) => {
-  // Clear console first
+  //* เคลียร์คอนโซลก่อน
   console.clear();
 
-  // Show ASCII banner
+  //* แสดงแบนเนอร์ ASCII
   console.log(SetColor([COLOR.fg.cyan], SERVER_BANNER));
 
-  // Loading animation
+  //* กำลังโหลดแอนิเมชั่น
   for (let i = 0; i <= 8; i++) {
     setTimeout(() => {
       const frame = createLoadingFrame(i);
@@ -66,7 +66,7 @@ export const logServerRunning = (port: number) => {
     }, i * 100);
   }
 
-  // Server info messages
+  //* ข้อความข้อมูลเซิร์ฟเวอร์
   setTimeout(() => {
     console.log('\n' + SetColor([COLOR.fg.magenta], '╔══════════════ SERVER INFO ══════════════╗'));
     console.log(
@@ -81,7 +81,7 @@ export const logServerRunning = (port: number) => {
     console.log(SetColor([COLOR.fg.magenta], '╚═════════════════════════════════════════╝'));
   }, 1000);
 
-  // Final message
+  //* ข้อความสุดท้าย
   setTimeout(() => {
     console.log('\n' + SetColor([COLOR.fg.green], `${EMOJIS.HEART} SR Server is ready to serve! ${EMOJIS.STAR}`));
   }, 1200);

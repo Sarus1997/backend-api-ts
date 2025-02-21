@@ -1,22 +1,18 @@
 import { Request, Response } from 'express';
-import pool from '../server/db';
+import { getDatabasePool } from '../server/db';
 import { generateDateTime } from "../core/function";
 
 const updateData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const {
-      product_id,
-      image_url,
-      product_name,
-      price,
-      brand,
-      status,
-      updated_at
-    } = req.body;
+    const { product_id, image_url, product_name, price, brand, status, updated_at, database } = req.body;
+
     if (!product_id) {
       res.status(400).json({ success: false, message: 'product_id is required.' });
       return;
     }
+
+    //* เลือกฐานข้อมูลที่ต้องการใช้
+    const pool = getDatabasePool(database);
 
     const datetime = generateDateTime();
     const fieldsToUpdate: string[] = [];
@@ -27,8 +23,9 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       price,
       brand,
       status,
-      updated_at: updated_at || new Date()
+      updated_at: updated_at || new Date(),
     };
+
     for (const [key, value] of Object.entries(fields)) {
       if (value !== undefined) {
         fieldsToUpdate.push(`${key} = ?`);
@@ -40,9 +37,11 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ success: false, message: 'No fields to update.' });
       return;
     }
+
     const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
     params.push(product_id);
     const [result] = await pool.execute(sql, params);
+
     if ((result as any).affectedRows === 0) {
       res.status(404).json({
         success: false,
@@ -50,6 +49,7 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       });
       return;
     }
+
     res.json({
       success: true,
       message: 'Data updated successfully!',

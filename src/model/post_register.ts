@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import pool from '../server/db';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import { generateHexID, generateDateTime } from '../core/function';
+import { getDatabasePool } from '../server/db';
 
 interface ProductData {
   username: string;
@@ -10,7 +10,7 @@ interface ProductData {
   password_hash: string;
   f_name: string;
   l_name: string;
-  profile_picture: string;
+  profile_picture?: string;
   oauth_provider?: string;
   role?: string;
   oauth_id?: string;
@@ -37,12 +37,13 @@ const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): P
       updated_at,
     } = req.body;
 
+    // รับค่า db_name จาก Query หรือใช้ค่า Default
+    const dbName = req.query.db_name as string || process.env.DB_DEFAULT || 'employee_db';
+    const pool = getDatabasePool(dbName); // เลือกฐานข้อมูล
+
     //* ตรวจสอบข้อมูลที่จำเป็น
     if (!username || !email || !password_hash || !f_name || !l_name) {
-      res.status(400).json({
-        success: false,
-        message: 'Fill in required information.',
-      });
+      res.status(400).json({ success: false, message: 'Fill in required information.' });
       return;
     }
 
@@ -100,7 +101,7 @@ const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): P
       id,
       username,
       email,
-      hashedPassword,  //* ใช้รหัสผ่านที่เข้ารหัสแล้ว
+      hashedPassword,
       f_name,
       l_name,
       profile_picture || null,

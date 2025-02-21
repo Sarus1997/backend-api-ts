@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import pool from '../server/db';
+import { getDatabasePool } from '../server/db';
 import { generateHexID, generateDateTime } from '../core/function';
 
 interface ProductData {
+  dbName: string; // เพิ่ม database name
   image_url: string;
   product_name: string;
   price: number;
@@ -16,6 +17,7 @@ interface ProductData {
 const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promise<void> => {
   try {
     const {
+      dbName,
       image_url,
       product_name,
       price,
@@ -23,7 +25,19 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       status,
       created_at,
       updated_at,
+      product_id,
     } = req.body;
+
+    // ตรวจสอบว่า dbName ถูกส่งมาหรือไม่
+    if (!dbName || typeof dbName !== 'string') {
+      res.status(400).json({
+        success: false,
+        message: 'Database name is required.',
+      });
+      return;
+    }
+
+    // ตรวจสอบค่าที่จำเป็น
     if (!image_url || !product_name || !price || !brand) {
       res.status(400).json({
         success: false,
@@ -31,7 +45,12 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       });
       return;
     }
-    const product_id = req.body.product_id || generateHexID();
+
+    // ใช้ database pool ตาม dbName
+    const pool = getDatabasePool(dbName);
+
+    // กำหนดค่าให้ product_id และ timestamps
+    const newProductId = product_id || generateHexID();
     const datetime = generateDateTime();
     const productStatus = status || 'active';
     const date_created = created_at || new Date();
@@ -44,7 +63,7 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       (?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const params = [
-      product_id,
+      newProductId,
       image_url,
       product_name,
       price,
@@ -54,13 +73,13 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       date_update,
     ];
     const [result] = await pool.execute(sql, params);
+
     res.json({
       success: true,
       message: 'Data inserted successfully!',
-      data: { product_id, product_name },
+      data: { product_id: newProductId, product_name },
       result,
-
-      datetime
+      datetime,
     });
   } catch (err) {
     console.error('Error:', err);

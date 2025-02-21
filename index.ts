@@ -1,10 +1,12 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import dotenv from 'dotenv';
 import { logServerRunning } from './src/config/logger';
-import pool from './src/server/db';
 import router from './src/routes/route';
 import { getHomePage } from './src/home';
+
+dotenv.config();
 
 (async () => {
   const port: number = 8080;
@@ -12,9 +14,9 @@ import { getHomePage } from './src/home';
 
   server.use(express.static(path.join(__dirname, 'public')));
   server.use(bodyParser.json());
-
   server.use(router);
 
+  //* หน้าแรก
   server.get('/', (req, res) => {
     res.send(getHomePage());
   });
@@ -22,11 +24,4 @@ import { getHomePage } from './src/home';
   server.listen(port, () => {
     logServerRunning(port);
   });
-
-  try {
-    const connection = await pool.getConnection();
-    connection.release();
-  } catch (error) {
-    console.error('Error connecting to the database:', error.message);
-  }
 })();
