@@ -21,7 +21,7 @@ npm start (Production)
 ```
 
 ## 📁 Project Structure
-Use the tsc command to create a dist.
+Use the ``` tsc ``` command to create a Folder dist.
 
 ```project-root/
 ├── src/
