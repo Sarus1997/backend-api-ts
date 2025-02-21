@@ -136,6 +136,4 @@ dotenv.config();
   }
 }
 ```
-```
-Developed ⚒️ by Saharat Suwannapapond
-```
+``` Developed ⚒️ by Saharat Suwannapapond ```
