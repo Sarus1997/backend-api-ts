@@ -2,9 +2,9 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import dotenv from 'dotenv';
-import { logServerRunning } from './src/config/logger';
-import router from './src/routes/route';
-import { getHomePage } from './src/home';
+import { logServerRunning } from './config/logger';
+import router from './routes/route';
+import { getHomePage } from './home';
 
 dotenv.config();
 
