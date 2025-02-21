@@ -1,18 +1,17 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateData = void 0;
-const db_1 = __importDefault(require("../server/db"));
+const db_1 = require("../server/db");
 const function_1 = require("../core/function");
 const updateData = async (req, res) => {
     try {
-        const { product_id, image_url, product_name, price, brand, status, updated_at } = req.body;
+        const { product_id, image_url, product_name, price, brand, status, updated_at, database } = req.body;
         if (!product_id) {
             res.status(400).json({ success: false, message: 'product_id is required.' });
             return;
         }
+        //* เลือกฐานข้อมูลที่ต้องการใช้
+        const pool = (0, db_1.getDatabasePool)(database);
         const datetime = (0, function_1.generateDateTime)();
         const fieldsToUpdate = [];
         const params = [];
@@ -22,7 +21,7 @@ const updateData = async (req, res) => {
             price,
             brand,
             status,
-            updated_at: updated_at || new Date()
+            updated_at: updated_at || new Date(),
         };
         for (const [key, value] of Object.entries(fields)) {
             if (value !== undefined) {
@@ -36,7 +35,7 @@ const updateData = async (req, res) => {
         }
         const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
         params.push(product_id);
-        const [result] = await db_1.default.execute(sql, params);
+        const [result] = await pool.execute(sql, params);
         if (result.affectedRows === 0) {
             res.status(404).json({
                 success: false,
