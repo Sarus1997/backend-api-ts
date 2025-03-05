@@ -4,8 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { logServerRunning } from './config/logger';
 import router from './routes/route';
-import { getHomePage } from './home';
-
+import { getHomePage } from './pages/getHomePage';
 dotenv.config();
 
 (async () => {
