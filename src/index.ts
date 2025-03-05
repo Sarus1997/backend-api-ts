@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { logServerRunning } from './config/logger';
 import router from './routes/route';
 import { getHomePage } from './pages/getHomePage';
+
+//* กำหนดตัวแปรการตั้งต่า server
 dotenv.config();
 
 (async () => {
@@ -20,6 +22,7 @@ dotenv.config();
     res.send(getHomePage());
   });
 
+  //* เริ่มต้นเซิร์ฟเวอร์
   server.listen(port, () => {
     logServerRunning(port);
   });

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Pool สำหรับฐานข้อมูลที่ 1 (employee_db)
+//* Pool สำหรับฐานข้อมูลที่ 1 (employee_db)
 const pool1 = mysql.createPool({
   host: process.env.DB1_HOST,
   port: parseInt(process.env.DB1_PORT),
@@ -15,7 +15,7 @@ const pool1 = mysql.createPool({
   queueLimit: parseInt(process.env.DB1_QUEUE_LIMIT),
 });
 
-// Pool สำหรับฐานข้อมูลที่ 2 (finance_db)
+//* Pool สำหรับฐานข้อมูลที่ 2 (finance_db)
 const pool2 = mysql.createPool({
   host: process.env.DB2_HOST,
   port: parseInt(process.env.DB2_PORT),
@@ -27,7 +27,7 @@ const pool2 = mysql.createPool({
   queueLimit: parseInt(process.env.DB2_QUEUE_LIMIT),
 });
 
-// ฟังก์ชันเลือก Pool ตามฐานข้อมูลที่ต้องการ
+//* ฟังก์ชันเลือก Pool ตามฐานข้อมูลที่ต้องการ
 const getDatabasePool = (dbName: string) => {
   if (dbName === 'employee_db') return pool1;
   if (dbName === 'finance_db') return pool2;

@@ -1,5 +1,3 @@
-import { Style } from "util";
-
 export const Header = (): string => `
   <style>
   .hero {
@@ -8,15 +6,18 @@ export const Header = (): string => `
   }
 
   .hero h1 {
-    font-size: 3rem;
     color: #1F2937;
-    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.025em;
   }
 
   .hero p {
     font-size: 1.25rem;
     color: #4B5563;
     margin-bottom: 2rem;
+
   }
 
   .button-group {
