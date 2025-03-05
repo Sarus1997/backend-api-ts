@@ -72,12 +72,14 @@ export const logServerError = (error) => {
 export const logServerRunning = async (port) => {
   await logServerBanner();
 
+  //* สร้างการโหลดข้อมูล
   let i = 0;
   const loadingInterval = setInterval(() => {
     process.stdout.write(`\r${SetColor([COLOR.fg.yellow], `[${createLoadingFrame(i)}]`)} Loading...`);
     i++;
   }, 80);
 
+  //* แสดงผลลัพธ์
   setTimeout(() => {
     clearInterval(loadingInterval);
     console.log(`\r${SetColor([COLOR.fg.green], '[✔] Complete!          ')}`);

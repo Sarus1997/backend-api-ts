@@ -17,7 +17,6 @@ export const Header = (): string => `
     font-size: 1.25rem;
     color: #4B5563;
     margin-bottom: 2rem;
-
   }
 
   .button-group {
