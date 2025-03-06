@@ -25,7 +25,7 @@ export const Footer = (): string => `
 
   <div class="footer">
     <p class="text-gray-600 text-sm">
-      © <span id="year" class="font-bold"></span> Developed with 
+      © <span id="year" class="font-bold"></span> Developed 
       <span class="text-red-500">❤️</span> by 
       <a href="https://www.facebook.com/saharat.suwannapapond.7" target="_blank" rel="noopener noreferrer">
         Sarus

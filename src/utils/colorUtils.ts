@@ -8,6 +8,7 @@ export const COLOR = {
     magenta: "\x1b[35m",
     cyan: "\x1b[36m",
     white: "\x1b[37m",
+    orange: "\x1b[38;5;208m",
     brightBlack: "\x1b[90m",
     brightRed: "\x1b[91m",
     brightGreen: "\x1b[92m",
@@ -16,6 +17,7 @@ export const COLOR = {
     brightMagenta: "\x1b[95m",
     brightCyan: "\x1b[96m",
     brightWhite: "\x1b[97m",
+    brightOrange: "\x1b[38;5;214m",
   },
 };
 
