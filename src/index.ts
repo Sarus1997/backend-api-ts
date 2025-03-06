@@ -2,9 +2,9 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import dotenv from 'dotenv';
-import { logServerRunning } from './config/logger';
+import { logServerRunning } from './utils/logger';
 import router from './routes/route';
-import { getHomePage } from './pages/getHomePage';
+import { getHomePage } from './views/getHomePage';
 
 //* กำหนดตัวแปรการตั้งต่า server
 dotenv.config();

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import { generateHexID, generateDateTime } from '../core/function';
-import { getDatabasePool } from '../server/db';
+import { getDatabasePool } from '../config/env';
 
 interface ProductData {
   username: string;
@@ -23,23 +23,11 @@ interface ProductData {
   id?: string;
 }
 
+const pool = getDatabasePool('employee_db'); // ใช้ฐานข้อมูล employee_db ตายตัว
+
 const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): Promise<void> => {
   try {
-    const {
-      username,
-      email,
-      password_hash,
-      f_name,
-      l_name,
-      profile_picture,
-      status,
-      created_at,
-      updated_at,
-    } = req.body;
-
-    // รับค่า db_name จาก Query หรือใช้ค่า Default
-    const dbName = req.query.db_name as string || process.env.DB_DEFAULT || 'employee_db';
-    const pool = getDatabasePool(dbName); // เลือกฐานข้อมูล
+    const { username, email, password_hash, f_name, l_name, profile_picture, status, created_at, updated_at } = req.body;
 
     //* ตรวจสอบข้อมูลที่จำเป็น
     if (!username || !email || !password_hash || !f_name || !l_name) {
@@ -120,7 +108,7 @@ const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): P
 
     res.json({
       success: true,
-      message: 'Data inserted successfully!',
+      message: 'User registered successfully!',
       data: { id, email },
       result,
       datetime

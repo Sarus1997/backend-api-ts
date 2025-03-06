@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../server/db';
+import { getDatabasePool } from '../config/env';
 import { generateHexID, generateDateTime } from '../core/function';
 
 interface ProductData {
-  dbName: string; // เพิ่ม database name
   image_url: string;
   product_name: string;
   price: number;
@@ -14,28 +13,11 @@ interface ProductData {
   product_id?: string;
 }
 
+const pool = getDatabasePool('employee_db');
+
 const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promise<void> => {
   try {
-    const {
-      dbName,
-      image_url,
-      product_name,
-      price,
-      brand,
-      status,
-      created_at,
-      updated_at,
-      product_id,
-    } = req.body;
-
-    // ตรวจสอบว่า dbName ถูกส่งมาหรือไม่
-    if (!dbName || typeof dbName !== 'string') {
-      res.status(400).json({
-        success: false,
-        message: 'Database name is required.',
-      });
-      return;
-    }
+    const { image_url, product_name, price, brand, status, created_at, updated_at, product_id } = req.body;
 
     // ตรวจสอบค่าที่จำเป็น
     if (!image_url || !product_name || !price || !brand) {
@@ -45,9 +27,6 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       });
       return;
     }
-
-    // ใช้ database pool ตาม dbName
-    const pool = getDatabasePool(dbName);
 
     // กำหนดค่าให้ product_id และ timestamps
     const newProductId = product_id || generateHexID();

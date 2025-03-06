@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../server/db';
+import { getDatabasePool } from '../config/env';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -7,9 +7,25 @@ const postLogin = async (req: Request, res: Response): Promise<void> => {
   try {
     let { dbName, usernameOrEmail, password } = req.body;
 
-    //* กำหนดค่าเริ่มต้นให้ dbName ถ้าไม่มีการส่งมา
+    //* ตรวจสอบ SECRET_KEY ตั้งแต่ต้น
+    if (!process.env.SECRET_KEY) {
+      console.error('JWT SECRET_KEY is not defined in environment variables.');
+      res.status(500).json({ success: false, message: 'Internal server error.' });
+      return;
+    }
+
+    //* กำหนดฐานข้อมูลเริ่มต้น
     if (!dbName) {
       dbName = "employee_db";
+    }
+
+    //* ตรวจสอบข้อมูลที่จำเป็น
+    if (!usernameOrEmail || typeof password !== 'string') {
+      res.status(400).json({
+        success: false,
+        message: 'Please provide both username/email and a valid password.',
+      });
+      return;
     }
 
     //* เลือก Connection Pool ตามฐานข้อมูลที่ระบุ
@@ -18,15 +34,6 @@ const postLogin = async (req: Request, res: Response): Promise<void> => {
       pool = getDatabasePool(dbName);
     } catch (error) {
       res.status(400).json({ success: false, message: `Database ${dbName} is not supported.` });
-      return;
-    }
-
-    //* ตรวจสอบข้อมูลที่จำเป็น
-    if (!usernameOrEmail || !password) {
-      res.status(400).json({
-        success: false,
-        message: 'Please provide both username/email and password.',
-      });
       return;
     }
 
@@ -43,17 +50,16 @@ const postLogin = async (req: Request, res: Response): Promise<void> => {
 
     const user = (rows as any)[0];
 
-    //* ตรวจสอบรหัสผ่าน
-    const isPasswordValid = await bcrypt.compare(password, user.password_hash);
-    if (!isPasswordValid) {
+    //* ตรวจสอบว่ามี password_hash หรือไม่
+    if (!user.password_hash) {
       res.status(401).json({ success: false, message: 'Invalid username/email or password.' });
       return;
     }
 
-    //* ตรวจสอบว่า SECRET_KEY มีค่าหรือไม่
-    if (!process.env.SECRET_KEY) {
-      console.error('JWT SECRET_KEY is not defined in environment variables.');
-      res.status(500).json({ success: false, message: 'Internal server error.' });
+    //* ตรวจสอบรหัสผ่าน
+    const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+    if (!isPasswordValid) {
+      res.status(401).json({ success: false, message: 'Invalid username/email or password.' });
       return;
     }
 
@@ -90,6 +96,5 @@ const postLogin = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
-
 
 export { postLogin };

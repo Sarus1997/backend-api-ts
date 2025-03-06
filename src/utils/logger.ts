@@ -1,4 +1,4 @@
-const { SetColor, COLOR } = require('../config/colorUtils');
+const { SetColor, COLOR } = require('../utils/colorUtils');
 
 //* อิโมจิ
 const EMOJIS = {
@@ -67,6 +67,23 @@ export const logServerError = (error) => {
     `\n${SetColor([COLOR.fg.red], '╚═══════════════╝')}`
   );
 };
+
+//* ทดสอบการเชื่อมต่อ
+// const testConnection = async () => {
+//   try {
+//     const connection1 = await pool1.getConnection();
+//     console.log(`✅ Connected to ${process.env.DB1_NAME} Database`);
+//     connection1.release();
+
+//     const connection2 = await pool2.getConnection();
+//     console.log(`✅ Connected to ${process.env.DB2_NAME} Database`);
+//     connection2.release();
+//   } catch (error) {
+//     console.error("❌ Database connection error:", error);
+//   }
+// };
+
+// testConnection();
 
 //* ตัวบันทึกการเริ่มต้นเซิร์ฟเวอร์ที่มีอนิเมชัน
 export const logServerRunning = async (port) => {

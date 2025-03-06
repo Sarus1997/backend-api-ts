@@ -1,12 +1,16 @@
 import { Router } from 'express';
-const router = Router();
+const router = Router(); ///* สร้าง router ของ Express
 
-import { getData, getFixData, getDataID } from '../model/get_data';
-import { postLogin } from "../model/post_login";
+///* นำเข้าไฟล์จาก model
+import { getData, getDataID, getFixData } from '../model/get_data';
 import { postData } from '../model/post_data';
 import { postRegister } from '../model/post_register';
+import { postLogin } from '../model/post_login';
 import { updateData } from '../model/update_data';
 import { deleteData } from '../model/delete_data';
+
+
+
 
 //* GET *//
 router.get('/api/get_data', getData);

@@ -1,25 +1,10 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../server/db';
+import { getDatabasePool } from '../config/env';
 import { generateDateTime } from '../core/function';
 
-const deleteData = async (req: Request<{}, {}, { dbName: string; product_id: string }>, res: Response): Promise<void> => {
+const deleteData = async (req: Request<{}, {}, { product_id: string }>, res: Response): Promise<void> => {
   try {
-    const { dbName, product_id } = req.body;
-
-    //* ตรวจสอบว่ามีการระบุฐานข้อมูลหรือไม่
-    if (!dbName) {
-      res.status(400).json({ success: false, message: 'Database name is required.' });
-      return;
-    }
-
-    //* เลือก Connection Pool ตามฐานข้อมูลที่ระบุ
-    let pool;
-    try {
-      pool = getDatabasePool(dbName);
-    } catch (error) {
-      res.status(400).json({ success: false, message: `Database ${dbName} is not supported.` });
-      return;
-    }
+    const { product_id } = req.body;
 
     //* ตรวจสอบว่ามี product_id หรือไม่
     if (!product_id) {
@@ -29,6 +14,9 @@ const deleteData = async (req: Request<{}, {}, { dbName: string; product_id: str
       });
       return;
     }
+
+    //* ใช้ฐานข้อมูล employee_db
+    const pool = getDatabasePool("employee_db");
 
     const datetime = generateDateTime();
     const sql = `
@@ -42,7 +30,7 @@ const deleteData = async (req: Request<{}, {}, { dbName: string; product_id: str
     if ((result as any).affectedRows === 0) {
       res.status(404).json({
         success: false,
-        message: `Product with ID ${product_id} not found in ${dbName}.`,
+        message: `Product with ID ${product_id} not found in employee_db.`,
       });
       return;
     }

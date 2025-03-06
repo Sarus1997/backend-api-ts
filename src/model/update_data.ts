@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../server/db';
+import { getDatabasePool } from '../config/env';
 import { generateDateTime } from "../core/function";
 
 const updateData = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { product_id, image_url, product_name, price, brand, status, updated_at, database } = req.body;
+    const { product_id, image_url, product_name, price, brand, status, updated_at } = req.body;
 
     if (!product_id) {
       res.status(400).json({ success: false, message: 'product_id is required.' });
       return;
     }
 
-    //* เลือกฐานข้อมูลที่ต้องการใช้
-    const pool = getDatabasePool(database);
+    //* กำหนดฐานข้อมูลตายตัว
+    const pool = getDatabasePool('employee_db');
 
     const datetime = generateDateTime();
     const fieldsToUpdate: string[] = [];
@@ -23,7 +23,7 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       price,
       brand,
       status,
-      updated_at: updated_at || new Date(),
+      updated_at: updated_at || datetime, // ใช้ generateDateTime() แทน new Date()
     };
 
     for (const [key, value] of Object.entries(fields)) {
@@ -38,7 +38,7 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
+    const sql = `UPDATE products SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
     params.push(product_id);
     const [result] = await pool.execute(sql, params);
 
