@@ -1,17 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDataID = exports.getFixData = exports.getData = void 0;
-const db_1 = require("../server/db");
+const env_1 = require("../config/env");
 const function_1 = require("../core/function");
+//* ใช้ employee_db เป็นค่า default
+const pool = (0, env_1.getDatabasePool)('employee_db');
 //* ฟังก์ชันดึงข้อมูลทั้งหมด *//
 const getData = async (req, res) => {
     try {
-        const { dbName } = req.query; // ใช้ query parameter
-        if (!dbName || typeof dbName !== 'string') {
-            res.status(400).json({ success: false, message: 'Database name is required.' });
-            return;
-        }
-        const pool = (0, db_1.getDatabasePool)(dbName);
         const sqlProducts = `SELECT * FROM product_`;
         const [rows] = await pool.query(sqlProducts);
         res.status(200).json({
@@ -34,12 +30,6 @@ exports.getData = getData;
 //* ฟังก์ชันดึงข้อมูลเฉพาะบางคอลัมน์ *//
 const getFixData = async (req, res) => {
     try {
-        const { dbName } = req.query;
-        if (!dbName || typeof dbName !== 'string') {
-            res.status(400).json({ success: false, message: 'Database name is required.' });
-            return;
-        }
-        const pool = (0, db_1.getDatabasePool)(dbName);
         const sqlProducts = `
       SELECT image_url, product_name, price, brand
       FROM product_
@@ -65,16 +55,11 @@ exports.getFixData = getFixData;
 //* ฟังก์ชันดึงข้อมูลตาม ID *//
 const getDataID = async (req, res) => {
     try {
-        const { dbName, product_id } = req.body;
-        if (!dbName || typeof dbName !== 'string') {
-            res.status(400).json({ success: false, message: 'Database name is required.' });
-            return;
-        }
+        const { product_id } = req.body;
         if (!product_id) {
             res.status(400).json({ success: false, message: 'product_id is required.' });
             return;
         }
-        const pool = (0, db_1.getDatabasePool)(dbName);
         const sqlProducts = `
       SELECT image_url, product_name, price, brand
       FROM product_
@@ -84,7 +69,7 @@ const getDataID = async (req, res) => {
         if (!Array.isArray(rows) || rows.length === 0) {
             res.status(404).json({
                 success: false,
-                message: `Product with ID ${product_id} not found in ${dbName}.`,
+                message: `Product with ID ${product_id} not found.`,
             });
             return;
         }

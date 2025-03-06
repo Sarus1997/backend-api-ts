@@ -1,25 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteData = void 0;
-const db_1 = require("../server/db");
+const env_1 = require("../config/env");
 const function_1 = require("../core/function");
 const deleteData = async (req, res) => {
     try {
-        const { dbName, product_id } = req.body;
-        //* ตรวจสอบว่ามีการระบุฐานข้อมูลหรือไม่
-        if (!dbName) {
-            res.status(400).json({ success: false, message: 'Database name is required.' });
-            return;
-        }
-        //* เลือก Connection Pool ตามฐานข้อมูลที่ระบุ
-        let pool;
-        try {
-            pool = (0, db_1.getDatabasePool)(dbName);
-        }
-        catch (error) {
-            res.status(400).json({ success: false, message: `Database ${dbName} is not supported.` });
-            return;
-        }
+        const { product_id } = req.body;
         //* ตรวจสอบว่ามี product_id หรือไม่
         if (!product_id) {
             res.status(400).json({
@@ -28,6 +14,8 @@ const deleteData = async (req, res) => {
             });
             return;
         }
+        //* ใช้ฐานข้อมูล employee_db
+        const pool = (0, env_1.getDatabasePool)("employee_db");
         const datetime = (0, function_1.generateDateTime)();
         const sql = `
       DELETE FROM product_
@@ -38,7 +26,7 @@ const deleteData = async (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).json({
                 success: false,
-                message: `Product with ID ${product_id} not found in ${dbName}.`,
+                message: `Product with ID ${product_id} not found in employee_db.`,
             });
             return;
         }

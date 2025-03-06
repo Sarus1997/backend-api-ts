@@ -1,19 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postData = void 0;
-const db_1 = require("../server/db");
+const env_1 = require("../config/env");
 const function_1 = require("../core/function");
+const pool = (0, env_1.getDatabasePool)('employee_db');
 const postData = async (req, res) => {
     try {
-        const { dbName, image_url, product_name, price, brand, status, created_at, updated_at, product_id, } = req.body;
-        // ตรวจสอบว่า dbName ถูกส่งมาหรือไม่
-        if (!dbName || typeof dbName !== 'string') {
-            res.status(400).json({
-                success: false,
-                message: 'Database name is required.',
-            });
-            return;
-        }
+        const { image_url, product_name, price, brand, status, created_at, updated_at, product_id } = req.body;
         // ตรวจสอบค่าที่จำเป็น
         if (!image_url || !product_name || !price || !brand) {
             res.status(400).json({
@@ -22,8 +15,6 @@ const postData = async (req, res) => {
             });
             return;
         }
-        // ใช้ database pool ตาม dbName
-        const pool = (0, db_1.getDatabasePool)(dbName);
         // กำหนดค่าให้ product_id และ timestamps
         const newProductId = product_id || (0, function_1.generateHexID)();
         const datetime = (0, function_1.generateDateTime)();
