@@ -11,7 +11,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({ success: false, message: 'Unauthorized: Missing token' });
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1];  // ดึง Token ออกจาก Authorization header
 
   if (!process.env.SECRET_KEY) {
     console.error('❌ SECRET_KEY is missing in .env file');
@@ -19,11 +19,11 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    (req as any).user = decoded;
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);  // ตรวจสอบความถูกต้องของ Token
+    (req as any).user = decoded;  // เก็บข้อมูลที่ decode จาก Token ไว้ใน req.user
 
     console.log("✅ Decoded Token:", decoded);
-    next();
+    next();  // ถ้า Token ถูกต้อง ให้ทำงานต่อไป
   } catch (error) {
     console.error('❌ JWT Verification Error:', error.message);
     return res.status(403).json({ success: false, message: 'Forbidden: Invalid token' });
