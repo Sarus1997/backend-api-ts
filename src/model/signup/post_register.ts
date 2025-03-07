@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import { generateHexID, generateDateTime } from '../core/function';
-import { getDatabasePool } from '../config/env';
+import { generateHexID, generateDateTime } from '../../core/function';
+import { getDatabasePool } from '../../config/env';
 
 interface ProductData {
   username: string;
@@ -23,7 +23,8 @@ interface ProductData {
   id?: string;
 }
 
-const pool = getDatabasePool('employee_db'); // ใช้ฐานข้อมูล employee_db ตายตัว
+//* ใช้ฐานข้อมูล employee_db
+const pool = getDatabasePool('employee_db');
 
 const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): Promise<void> => {
   try {
@@ -123,3 +124,13 @@ const postRegister = async (req: Request<{}, {}, ProductData>, res: Response): P
 };
 
 export { postRegister };
+
+// ตัวอย่างการใช้งาน
+// {
+//   "username": "testuser",
+//   "email": "testuser@example.com",
+//   "password_hash": "12345678",
+//   "f_name": "Test",
+//   "l_name": "User",
+//   "profile_picture": "URL_ADDRESS.com/profile.jpg"
+// }

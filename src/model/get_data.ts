@@ -8,6 +8,8 @@ const pool = getDatabasePool('employee_db');
 //* ฟังก์ชันดึงข้อมูลทั้งหมด *//
 const getData = async (req: Request, res: Response): Promise<void> => {
   try {
+    console.log("🔹 Received Authorization Header:", req.headers.authorization);
+
     const sqlProducts = `SELECT * FROM product_`;
     const [rows] = await pool.query(sqlProducts);
 
@@ -26,6 +28,7 @@ const getData = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
+
 
 //* ฟังก์ชันดึงข้อมูลเฉพาะบางคอลัมน์ *//
 const getFixData = async (req: Request, res: Response): Promise<void> => {
