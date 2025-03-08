@@ -45,6 +45,7 @@ Use the ``` tsc ``` command to create a Folder ``` dist```
 │    │   └── route.ts
 │    ├── utils/
 │        └── colorUtils.ts
+├── .env
 ├── index.ts
 ├── generateSecretKey.ts
 ├── chack_pass.ts
@@ -58,7 +59,7 @@ Use the ``` tsc ``` command to create a Folder ``` dist```
 import { Router } from 'express';
 const router = Router();
 
-router.get('/'); // Welcome Page
+router.get('/'); //* Welcome Page
 router.get("/api/get_data", getData);
 router.post('/api/post_data', postData);
 router.put('/api/update_data', updateData);
