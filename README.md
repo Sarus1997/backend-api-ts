@@ -26,18 +26,25 @@ Use the ``` tsc ``` command to create a Folder ``` dist```
 ```project-root/
 ├── src/
 │    ├── config/
-│    │   └── colorUtils.ts
+│    │   └── env.ts
 │    ├── core/
 │    │   └── function.ts
+│    ├── Middleware/
+│    │   └── authMiddleware.ts
 │    ├── model/
+│    │   └── signin/
+│    │   │   └── post_login.ts
+│    │   └── signup/
+│    │   │   └── post_register.ts
+│    │   └── get_data.ts
 │    │   └── get_data.ts
 │    │   └── post_data.ts
 │    │   └── update_data.ts
 │    │   └── delete_data.ts
 │    ├── routes/
 │    │   └── route.ts
-│    ├── server/
-│        └── db.ts
+│    ├── utils/
+│        └── colorUtils.ts
 ├── index.ts
 ├── generateSecretKey.ts
 ├── chack_pass.ts
@@ -67,10 +74,11 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import dotenv from 'dotenv';
-import { logServerRunning } from './src/config/logger';
-import router from './src/routes/route';
-import { getHomePage } from './src/home';
+import { logServerRunning } from './utils/logger';
+import router from './routes/route';
+import { getHomePage } from './views/getHomePage';
 
+//* Load environment variables
 dotenv.config();
 
 (async () => {
@@ -81,15 +89,17 @@ dotenv.config();
   server.use(bodyParser.json());
   server.use(router);
 
-  //* หน้าแรก
+  //* Welcome Page
   server.get('/', (req, res) => {
     res.send(getHomePage());
   });
 
+  //* Server Running
   server.listen(port, () => {
     logServerRunning(port);
   });
 })();
+
 
 ```
 
@@ -107,20 +117,21 @@ dotenv.config();
 
 ```json
 {
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^20.5.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
   "dependencies": {
- "bcrypt": "^5.1.1",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.5"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.5.0",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
   }
 }
 ```
@@ -131,7 +142,8 @@ dotenv.config();
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec ts-node index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "start": "node dist/index.js",
     "build": "tsc"
   }
 }
