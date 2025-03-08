@@ -19,7 +19,7 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
   try {
     const { image_url, product_name, price, brand, status, created_at, updated_at, product_id } = req.body;
 
-    // ตรวจสอบค่าที่จำเป็น
+    //* ตรวจสอบค่าที่จำเป็น
     if (!image_url || !product_name || !price || !brand) {
       res.status(400).json({
         success: false,
@@ -28,7 +28,7 @@ const postData = async (req: Request<{}, {}, ProductData>, res: Response): Promi
       return;
     }
 
-    // กำหนดค่าให้ product_id และ timestamps
+    //* กำหนดค่าให้ product_id และ timestamps
     const newProductId = product_id || generateHexID();
     const datetime = generateDateTime();
     const productStatus = status || 'active';

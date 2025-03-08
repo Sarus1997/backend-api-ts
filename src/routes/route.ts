@@ -18,17 +18,21 @@ router.post("/api/signin", postLogin);
 
 //* ต้องใช้ Token *//
 //* GET *//
-router.get('/api/get_data', authenticate, getData);  // ต้องใช้ Token
-router.get('/api/get_fix_data', authenticate, getFixData);  // ต้องใช้ Token
-router.get('/api/get_data_id', authenticate, getDataID);  // ต้องใช้ Token
+router.get('/api/get_data', getData);
+router.get('/api/get_fix_data', getFixData);
+router.get('/api/get_data_id', getDataID);
+
+// router.get('/api/get_data', authenticate, getData);
+// router.get('/api/get_fix_data', authenticate, getFixData);
+// router.get('/api/get_data_id', authenticate, getDataID);
 
 //* POST *//
-router.post('/api/post_data', authenticate, postData);  // ต้องใช้ Token
+router.post('/api/post_data', authenticate, postData);
 
 //* PUT *//
-router.put('/api/update_data', authenticate, updateData);  // ต้องใช้ Token
+router.put('/api/update_data', authenticate, updateData);
 
 //* DELETE *//
-router.delete('/api/delete_data', authenticate, deleteData);  // ต้องใช้ Token
+router.delete('/api/delete_data', authenticate, deleteData);
 
 export default router;
