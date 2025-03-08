@@ -1,7 +1,6 @@
-// apiService.js
-
 const fetchData = async () => {
-  const token = localStorage.getItem('token');  // ดึง Token จาก LocalStorage
+  //* ดึง Token จาก LocalStorage
+  const token = localStorage.getItem('token');
 
   if (!token) {
     console.log('Token not found! Please log in first.');
@@ -12,12 +11,14 @@ const fetchData = async () => {
     const response = await fetch('http://localhost:8080/api/get_data', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,  // ส่ง Token ใน Authorization header
+        //* ส่ง Token ใน Authorization header
+        'Authorization': `Bearer ${token}`,
       },
     });
 
     const data = await response.json();
-    console.log(data);  // แสดงข้อมูลที่ได้จาก API
+    //* แสดงข้อมูลที่ได้จาก API
+    console.log(data);
   } catch (error) {
     console.error('Error:', error);
   }
