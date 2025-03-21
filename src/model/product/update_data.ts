@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../config/env';
-import { generateDateTime } from "../core/function";
+import { getDatabasePool } from '../../config/env';
+import { generateDateTime } from "../../core/function";
 
 const updateData = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../config/env';
-import { generateDateTime } from '../core/function';
+import { getDatabasePool } from '../../config/env';
+import { generateDateTime } from '../../core/function';
 
 //* ใช้ employee_db เป็นค่า default
 const pool = getDatabasePool('employee_db');

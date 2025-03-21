@@ -20,6 +20,10 @@ npm run dev (Develop)
 npm start (Production)
 ```
 
+```bash
+Recommended Node.js version: v23.10.0
+```
+
 ## 📁 Project Structure
 Use the ``` tsc ``` command to create a Folder ``` dist```
 
@@ -46,12 +50,20 @@ Use the ``` tsc ``` command to create a Folder ``` dist```
 │    ├── utils/
 │        └── colorUtils.ts
 ├── .env
+├── config.yaml
 ├── index.ts
 ├── generateSecretKey.ts
 ├── chack_pass.ts
 ```
 
 ## 🛠️ Core Files
+
+### Enable/Disable API usage in config.yaml file using True/False
+```yaml
+    api_status:
+      users: true
+      product: true
+```
 
 ### User Routes (src/routes/routes.ts)
 
@@ -100,8 +112,6 @@ dotenv.config();
     logServerRunning(port);
   });
 })();
-
-
 ```
 
 ## 📂 API Endpoints
@@ -113,29 +123,6 @@ dotenv.config();
 | POST | `/api/post_data` | Create new user |
 | PUT | `/api/update_data/:id` | Update user by ID |
 | DELETE | `/api/delete_data/:id` | Delete user by ID |
-
-## 📦 Dependencies
-
-```json
-{
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^20.5.0",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.3",
-    "dotenv": "^16.4.7",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.5"
-  }
-}
-```
 
 ## 🛠️ Scripts
 

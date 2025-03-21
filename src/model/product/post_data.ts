@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { getDatabasePool } from '../config/env';
-import { generateHexID, generateDateTime } from '../core/function';
+import { getDatabasePool } from '../../config/env';
+import { generateHexID, generateDateTime } from '../../core/function';
+
 
 interface ProductData {
   image_url: string;

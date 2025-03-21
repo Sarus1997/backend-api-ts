@@ -1,0 +1,5 @@
+# TODO: เปิด-ปิด การใช้งาน API โดยใช้ true / false
+
+api_status:
+  users: true
+  product: true
