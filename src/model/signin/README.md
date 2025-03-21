@@ -4,8 +4,8 @@
 ```json
  {
 { 
-    "usernameOrEmail": "test", 
-    "password": "12345678" 
+    "usernameOrEmail": "Admin", 
+    "password": "admin12345" 
 }
  }
 ```
@@ -13,8 +13,8 @@
 ```json
  {
 { 
-    "usernameOrEmail": "test123@example.com", 
-    "password": "12345678" 
+    "usernameOrEmail": "admin@example.com", 
+    "password": "admin12345" 
 }
  }
 ```
