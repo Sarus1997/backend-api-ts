@@ -29,7 +29,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     //* ถ้า Token ถูกต้อง ให้ทำงานต่อไป
     next();
   } catch (error) {
-    console.error('❌ JWT Verification Error:', error.message);
+    console.error('❌ JWT Verification Error:', (error as Error).message);
     return res.status(403).json({ success: false, message: 'Forbidden: Invalid token' });
   }
 };

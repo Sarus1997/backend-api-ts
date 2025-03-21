@@ -12,23 +12,24 @@ import { postLogin } from '../model/signin/post_login';
 
 const router = Router();
 
-// โหลดค่า config.yaml
+//* โหลดค่า config.yaml
 const config = yaml.load(readFileSync('config.yaml', 'utf8')) as any;
 
-// ตรวจสอบการเปิด-ปิด API
+//* ตรวจสอบการเปิด-ปิด API
 const isUsersEnabled = config.api_status.users;
 const isProductEnabled = config.api_status.product;
 
-//* ไม่ต้องใช้ Token *//
+//* ไม่ต้องใช้ Token
 if (isUsersEnabled) {
   router.post("/api/register", postRegister);
   router.post("/api/signin", postLogin);
 }
 
-//* ต้องใช้ Token *//
+//* ต้องใช้ Token
 if (isProductEnabled) {
+
   //* GET *//
-  router.get('/api/get_data', getData);
+  router.get('/api/get_data', authenticate, getData);
   router.get('/api/get_fix_data', authenticate, getFixData);
   router.get('/api/get_data_id', authenticate, getDataID);
 

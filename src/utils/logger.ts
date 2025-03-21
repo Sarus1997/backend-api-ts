@@ -120,7 +120,7 @@ export const logServerBanner = async () => {
 };
 
 //* เอฟเฟคแฟลช - กระพริบข้อความ
-const flashText = async (text, color, times = 3, speed = 100) => {
+const flashText = async (text: string, color: string, times: number = 3, speed: number = 100) => {
   for (let i = 0; i < times; i++) {
     process.stdout.write('\r' + SetColor([color], text));
     await new Promise(resolve => setTimeout(resolve, speed));
@@ -156,7 +156,7 @@ const createPulsingLine = async (width = 50, speed = 30) => {
 };
 
 //* แสดงข้อผิดพลาดเซิร์ฟเวอร์
-export const logServerError = (error) => {
+export const logServerError = (error: Error) => {
   console.log(
     `${SetColor([COLOR.fg.red], '╔════ ERROR ════╗')}`,
     `\n${SetColor([COLOR.fg.magenta], '[Server]')} ${SetColor([COLOR.fg.red], 'Error:')} ${error}`,
@@ -169,7 +169,7 @@ const date = timestamp.split(' ')[0];
 const time = timestamp.split(' ')[1];
 
 //* ตัวบันทึกการเริ่มต้นเซิร์ฟเวอร์ที่มีอนิเมชัน
-export const logServerRunning = async (port) => {
+export const logServerRunning = async (port: number) => {
 
   await logServerBanner();
 
