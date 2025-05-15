@@ -38,7 +38,7 @@ const updateData = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const sql = `UPDATE products SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
+    const sql = `UPDATE product_ SET ${fieldsToUpdate.join(', ')} WHERE product_id = ?`;
     params.push(product_id);
     const [result] = await pool.execute(sql, params);
 
