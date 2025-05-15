@@ -34,7 +34,7 @@ if (isProductEnabled) {
   router.get('/api/get_data_id', authenticate, getDataID);
 
   //* POST *//
-  router.post('/api/post_data', authenticate, postData);
+  router.post('/api/post_data', postData);
 
   //* PUT *//
   router.put('/api/update_data', authenticate, updateData);
