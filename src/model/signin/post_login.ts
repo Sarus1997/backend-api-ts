@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getDatabasePool } from '../../config/env';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const postLogin = async (req: Request, res: Response): Promise<void> => {
